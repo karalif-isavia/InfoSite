@@ -120,7 +120,7 @@ async function getWeather() {
 // ATIS
 async function getDatis() {
   try {
-    const response = await fetch('https://webdatis.arinc.net/cgi-bin/datis/get_datis?station=BIKF&sessionId=HY618U7T&products=DATIS&arrdep=ARR');
+    const response = await fetch('https://site-proxy-m4fs.onrender.com/datis');
     const text = await response.text();
 
     const hasLowVis = text.toUpperCase().includes("LOW VIS");
@@ -133,5 +133,6 @@ async function getDatis() {
   }
 }
 
+
 getWeather();
-getDatis();
+getAtis();
