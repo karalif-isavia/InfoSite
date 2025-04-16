@@ -51,15 +51,22 @@ async function getWeather() {
     const response = await fetch('https://site-proxy-m4fs.onrender.com/weather');
     const json = await response.json();
 
-    // Main wind sensor
-    const wind01 = json.data.Sensors.Wind.find(w => w.Id === "Wind01");
+    const data = json.data;
+
+    // Temperature, dew point, humidity
+    const tempParams = data.Sensors.Temperature.Parameters;
+    const temp = tempParams.find(p => p.Name === "Temp")?.Value ?? "N/A";
+    const dew = tempParams.find(p => p.Name === "Dew")?.Value ?? "N/A";
+    const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
+
+    // Wind sensors
+    const wind01 = data.Sensors.Wind.find(w => w.Id === "Wind01");
+    const wind10 = data.Sensors.Wind.find(w => w.Id === "Wind10");
+    const wind19 = data.Sensors.Wind.find(w => w.Id === "Wind19");
+    const wind28 = data.Sensors.Wind.find(w => w.Id === "Wind28");
+
     const windSpeed01 = wind01?.Speed?.Value ?? "N/A";
     const windDir01 = wind01?.Direction?.Value ?? "N/A";
-
-    // Runway-specific wind sensors
-    const wind10 = json.data.Sensors.Wind.find(w => w.Id === "Wind10");
-    const wind19 = json.data.Sensors.Wind.find(w => w.Id === "Wind19");
-    const wind28 = json.data.Sensors.Wind.find(w => w.Id === "Wind28");
 
     const windSpeed10 = wind10?.Speed?.Value ?? "N/A";
     const windDir10 = wind10?.Direction?.Value ?? "N/A";
@@ -70,7 +77,13 @@ async function getWeather() {
     const windSpeed28 = wind28?.Speed?.Value ?? "N/A";
     const windDir28 = wind28?.Direction?.Value ?? "N/A";
 
+    // Update the weather section
     document.getElementById('weather').innerHTML = `
+      <strong>Atmospheric Conditions:</strong><br>
+      Temperature: ${temp}°C<br>
+      Dew Point: ${dew}°C<br>
+      Humidity: ${rh}%<br>
+
       <strong>Wind at Keflavík Airport:</strong><br>
       Wind01: ${windSpeed01} kts from ${windDir01}°<br><br>
 
@@ -85,6 +98,7 @@ async function getWeather() {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
+
 
 // DATIS
 async function getDatis() {
