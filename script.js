@@ -136,4 +136,4 @@ async function getDatis() {
 
 
 getWeather();
-getAtis();
+getDatis();
