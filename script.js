@@ -51,31 +51,37 @@ async function getWeather() {
     const response = await fetch('https://site-proxy-m4fs.onrender.com/weather');
     const json = await response.json();
 
-    const windSensor = json.data.Sensors.Wind.find(w => w.Id === "Wind01");
-    const windSpeed = windSensor?.Speed?.Value ?? "N/A";
-    const windDir = windSensor?.Direction?.Value ?? "N/A";
+    // Main wind sensor
+    const wind01 = json.data.Sensors.Wind.find(w => w.Id === "Wind01");
+    const windSpeed01 = wind01?.Speed?.Value ?? "N/A";
+    const windDir01 = wind01?.Direction?.Value ?? "N/A";
 
-    const tempParams = json.data.Sensors.Temperature.Parameters;
-    const temp = tempParams.find(p => p.Name === "Temp")?.Value ?? "N/A";
-    const dew = tempParams.find(p => p.Name === "Dew")?.Value ?? "N/A";
-    const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
+    // Runway-specific wind sensors
+    const wind10 = json.data.Sensors.Wind.find(w => w.Id === "Wind10");
+    const wind19 = json.data.Sensors.Wind.find(w => w.Id === "Wind19");
+    const wind28 = json.data.Sensors.Wind.find(w => w.Id === "Wind28");
 
-    const pressure = json.data.Sensors.Pressure.Parameters.find(p => p.Name === "QNH")?.Value ?? "N/A";
+    const windSpeed10 = wind10?.Speed?.Value ?? "N/A";
+    const windDir10 = wind10?.Direction?.Value ?? "N/A";
+
+    const windSpeed19 = wind19?.Speed?.Value ?? "N/A";
+    const windDir19 = wind19?.Direction?.Value ?? "N/A";
+
+    const windSpeed28 = wind28?.Speed?.Value ?? "N/A";
+    const windDir28 = wind28?.Direction?.Value ?? "N/A";
 
     document.getElementById('weather').innerHTML = `
       <strong>Wind at Keflavík Airport:</strong><br>
-      Wind Speed (Wind01): ${windSpeed} kts<br>
-      Wind Direction: ${windDir}°<br><br>
-      
-      <strong>Atmospheric Conditions:</strong><br>
-      Temperature: ${temp}°C<br>
-      Dew Point: ${dew}°C<br>
-      Humidity: ${rh}%<br>
-      Pressure (QNH): ${pressure} hPa
+      Wind01: ${windSpeed01} kts from ${windDir01}°<br><br>
+
+      <strong>Runway Winds:</strong><br>
+      RWY 10: ${windSpeed10} kts from ${windDir10}°<br>
+      RWY 19: ${windSpeed19} kts from ${windDir19}°<br>
+      RWY 28: ${windSpeed28} kts from ${windDir28}°<br>
     `;
   } catch (error) {
     console.error("Weather API error:", error.message || error);
-    alert("Weather API error: " + (error.message || error));    
+    alert("Weather API error: " + (error.message || error));
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
