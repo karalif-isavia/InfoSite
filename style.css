@@ -1,29 +1,62 @@
-/* Digital Clock - now bigger */
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #2c3e50, #3498db);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Container */
+.container {
+  text-align: center;
+  max-width: 700px;
+  width: 100%;
+}
+
+/* Heading */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+/* Digital Clock */
 #time {
-  font-size: 5rem; /* increased from 4rem */
+  font-size: 4rem;
   font-weight: bold;
   font-family: 'Courier New', monospace;
   background: rgba(255, 255, 255, 0.15);
-  padding: 1.5rem 2.5rem;
+  padding: 1rem 2rem;
   border-radius: 15px;
   margin-bottom: 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(8px);
 }
 
-/* Weather Card - cleaner layout */
+/* Weather Card */
 #weather {
   position: relative;
   padding: 2rem;
   border-radius: 15px;
   overflow: hidden;
-  font-size: 1.3rem;
-  line-height: 1.6;
+  text-align: left;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(6px);
   color: white;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  text-align: left;
 }
 
 /* Weather background image */
@@ -36,11 +69,24 @@
   height: 100%;
   background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7e?auto=format&fit=crop&w=1400&q=80') no-repeat center center;
   background-size: cover;
-  opacity: 0.2;
+  opacity: 0.25;
   z-index: 0;
 }
 
+/* Weather text on top of background */
 #weather > * {
   position: relative;
   z-index: 1;
+}
+
+/* DATIS */
+#datis {
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  white-space: pre-line;
+  text-align: left;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
