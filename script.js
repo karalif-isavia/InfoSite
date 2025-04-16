@@ -26,7 +26,7 @@ updateTime();
 
 async function getWeather() {
   try {
-    const response = await fetch('http://infomonitor/api/https://site-proxy-m4fs.onrender.com');
+    const response = await fetch('https://site-proxy-m4fs.onrender.com/weather');
     const json = await response.json();
 
     const results = json.results;
@@ -47,6 +47,7 @@ async function getWeather() {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
+
 
 
 // DATIS
