@@ -11,18 +11,21 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-// Weather
+// Fetch local weather at Keflavík Airport
 async function getWeather() {
   try {
-    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=64.13&longitude=-21.9&current_weather=true');
+    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=64.13&longitude=-21.94&current_weather=true');
     const data = await response.json();
     const weather = data.current_weather;
-    document.getElementById('weather').innerText =
-      `Weather in Reykjavík:\nTemperature: ${weather.temperature}°C\nWind: ${weather.windspeed} km/h`;
+    document.getElementById('weather').innerHTML =
+      `<strong>Weather at Keflavík Airport:</strong><br>
+       Temperature: ${weather.temperature}°C<br>
+       Wind: ${weather.windspeed} km/h`;
   } catch (error) {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
+
 
 // DATIS
 async function getDatis() {
