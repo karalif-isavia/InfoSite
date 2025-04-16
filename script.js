@@ -1,9 +1,13 @@
 // Show local time in Iceland
 function updateTime() {
-    const options = { timeZone: 'Atlantic/Reykjavik', timeStyle: 'medium', dateStyle: 'full' };
-    const now = new Date().toLocaleString('en-GB', options);
-    document.getElementById('time').innerText = "Time in Iceland: " + now;
-  }
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-GB', {
+    timeZone: 'Atlantic/Reykjavik',
+    hour12: false
+  });
+  document.getElementById('time').innerText = timeStr;
+}
+
   
   setInterval(updateTime, 1000);
   updateTime();
