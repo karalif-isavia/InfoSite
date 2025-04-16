@@ -79,6 +79,12 @@ h1 {
   z-index: 1;
 }
 
+#weather strong {
+  font-size: 1.3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
 /* DATIS */
 #datis {
   font-size: 1rem;
