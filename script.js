@@ -26,7 +26,7 @@ updateTime();
 
 async function getWeather() {
   try {
-    const response = await fetch('http://infomonitor/api/GetwindData');
+    const response = await fetch('http://infomonitor/api/https://site-proxy-m4fs.onrender.com');
     const json = await response.json();
 
     const results = json.results;
