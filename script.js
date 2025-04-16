@@ -11,7 +11,7 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-// Weather
+// Working version from open meteo API
 /*async function getWeather() {
   try {
     const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=64.13&longitude=-21.9&current_weather=true');
@@ -24,7 +24,8 @@ updateTime();
   }
 }*/
 
-async function getWeather() {
+// Working version from AWOS using site proxy, only wind speed and direction
+/*async function getWeather() {
   try {
     const response = await fetch('https://site-proxy-m4fs.onrender.com/weather');
     const json = await response.json();
@@ -43,8 +44,41 @@ async function getWeather() {
     alert("Weather API error: " + (error.message || error));    
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
-}
+}*/
 
+async function getWeather() {
+  try {
+    const response = await fetch('https://site-proxy-m4fs.onrender.com/weather');
+    const json = await response.json();
+
+    const windSensor = json.data.Sensors.Wind.find(w => w.Id === "Wind01");
+    const windSpeed = windSensor?.Speed?.Value ?? "N/A";
+    const windDir = windSensor?.Direction?.Value ?? "N/A";
+
+    const tempParams = json.data.Sensors.Temperature.Parameters;
+    const temp = tempParams.find(p => p.Name === "Temp")?.Value ?? "N/A";
+    const dew = tempParams.find(p => p.Name === "Dew")?.Value ?? "N/A";
+    const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
+
+    const pressure = json.data.Sensors.Pressure.Parameters.find(p => p.Name === "QNH")?.Value ?? "N/A";
+
+    document.getElementById('weather').innerHTML = `
+      <strong>Wind at Keflavík Airport:</strong><br>
+      Wind Speed (Wind01): ${windSpeed} kts<br>
+      Wind Direction: ${windDir}°<br><br>
+      
+      <strong>Atmospheric Conditions:</strong><br>
+      Temperature: ${temp}°C<br>
+      Dew Point: ${dew}°C<br>
+      Humidity: ${rh}%<br>
+      Pressure (QNH): ${pressure} hPa
+    `;
+  } catch (error) {
+    console.error("Weather API error:", error.message || error);
+    alert("Weather API error: " + (error.message || error));    
+    document.getElementById('weather').innerText = "Failed to load weather.";
+  }
+}
 
 // DATIS
 async function getDatis() {
