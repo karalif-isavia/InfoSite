@@ -39,7 +39,8 @@ async function getWeather() {
       Wind Direction: ${windDir}°
     `;
   } catch (error) {
-    console.error("Weather API error:", error);
+    console.error("Weather API error:", error.message || error);
+    alert("Weather API error: " + (error.message || error));    
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
