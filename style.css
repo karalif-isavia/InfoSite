@@ -44,6 +44,17 @@ h1 {
   backdrop-filter: blur(8px);
 }
 
+#time-container {
+  margin-bottom: 2rem;
+}
+
+#date {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  color: #eee;
+  opacity: 0.85;
+}
+
 /* Weather Card */
 #weather {
   position: relative;

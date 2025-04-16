@@ -1,11 +1,21 @@
 // Clock only - Digital style
 function updateTime() {
   const now = new Date();
+
   const timeStr = now.toLocaleTimeString('en-GB', {
     timeZone: 'Atlantic/Reykjavik',
     hour12: false
   });
+
+  const dateStr = now.toLocaleDateString('en-GB', {
+    timeZone: 'Atlantic/Reykjavik',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  });
+
   document.getElementById('time').innerText = timeStr;
+  document.getElementById('date').innerText = dateStr;
 }
 
 setInterval(updateTime, 1000);
@@ -107,13 +117,18 @@ async function getWeather() {
 
 
 
-// DATIS
+// ATIS
 async function getDatis() {
   try {
     const response = await fetch('https://webdatis.arinc.net/cgi-bin/datis/get_datis?station=BIKF&sessionId=HY618U7T&products=DATIS&arrdep=ARR');
     const text = await response.text();
-    document.getElementById('datis').innerText = "DATIS Info:\n" + text;
+
+    const hasLowVis = text.toUpperCase().includes("LOW VIS");
+    const visibilityStatus = hasLowVis ? "⚠️ LOW VIS" : "✅ NO LOW VIS";
+
+    document.getElementById('datis').innerText = `${visibilityStatus}\n\n${text}`;
   } catch (error) {
+    console.error("DATIS API error:", error.message || error);
     document.getElementById('datis').innerText = "Failed to load DATIS.";
   }
 }
