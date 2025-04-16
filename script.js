@@ -27,7 +27,11 @@ updateTime();
 // Weather using AWOS API from Keflavík Airport
 async function getWeather() {
   try {
-    const response = await fetch('https://awos.kefairport.is/api/Values/');
+    //const response = await fetch('https://awos.kefairport.is/api/Values/');
+
+    // Using a CORS proxy to bypass CORS issues, might be an issue later on
+    const response = await fetch('https://corsproxy.io/?https://awos.kefairport.is/api/Values/');
+
     const json = await response.json();
     const data = json.data;
 
