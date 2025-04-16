@@ -13,4 +13,16 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+
+  #time {
+    font-size: 3rem;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #000;
+    color: #0f0;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    letter-spacing: 0.1em;
+  }
   
