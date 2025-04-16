@@ -1,4 +1,4 @@
-// Clock only - Digital style
+// Time
 function updateTime() {
   const now = new Date();
 
@@ -21,42 +21,9 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-// Working version from open meteo API
+
+// Weather
 /*async function getWeather() {
-  try {
-    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=64.13&longitude=-21.9&current_weather=true');
-    const data = await response.json();
-    const weather = data.current_weather;
-    document.getElementById('weather').innerText =
-      `Weather in Reykjavík:\nTemperature: ${weather.temperature}°C\nWind: ${weather.windspeed} km/h`;
-  } catch (error) {
-    document.getElementById('weather').innerText = "Failed to load weather.";
-  }
-}*/
-
-// Working version from AWOS using site proxy, only wind speed and direction
-/*async function getWeather() {
-  try {
-    const response = await fetch('https://site-proxy-m4fs.onrender.com/weather');
-    const json = await response.json();
-
-    const windSensor = json.data.Sensors.Wind.find(w => w.Id === "Wind01");
-    const windSpeed = windSensor?.Speed?.Value ?? "N/A";
-    const windDir = windSensor?.Direction?.Value ?? "N/A";
-
-    document.getElementById('weather').innerHTML = `
-      <strong>Wind at Keflavík Airport:</strong><br>
-      Wind Speed: ${windSpeed} kts<br>
-      Wind Direction: ${windDir}°
-    `;
-  } catch (error) {
-    console.error("Weather API error:", error.message || error);
-    alert("Weather API error: " + (error.message || error));    
-    document.getElementById('weather').innerText = "Failed to load weather.";
-  }
-}*/
-
-async function getWeather() {
   try {
     const response = await fetch('https://site-proxy-m4fs.onrender.com/weather');
     const json = await response.json();
@@ -114,7 +81,73 @@ async function getWeather() {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
+*/
 
+async function getWeather() {
+  try {
+    const response = await fetch('https://site-proxy-m4fs.onrender.com/weather');
+    const json = await response.json();
+    const data = json.data;
+
+    // Temperature, dew point, humidity
+    const tempParams = data.Sensors.Temperature.Parameters;
+    const temp = tempParams.find(p => p.Name === "Temp")?.Value ?? "N/A";
+    const dew = tempParams.find(p => p.Name === "Dew")?.Value ?? "N/A";
+    const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
+
+    // Pressure
+    const pressure = data.Sensors.Pressure.Parameters.find(p => p.Name === "QNH")?.Value ?? "N/A";
+
+    // Wind sensors
+    const getWind = id => data.Sensors.Wind.find(w => w.Id === id) || {};
+    const wind01 = getWind("Wind01");
+    const wind10 = getWind("Wind10");
+    const wind19 = getWind("Wind19");
+    const wind28 = getWind("Wind28");
+
+    // Runway temperatures
+    const rwyTemps = data.Sensors.TempRwy.Parameters.reduce((acc, param) => {
+      acc[param.Name] = param.Value;
+      return acc;
+    }, {});
+
+    // Helper to extract values cleanly
+    const formatRWY = (name, wind, tempKey) => {
+      const speed = wind?.Speed?.Value ?? "N/A";
+      const dir = wind?.Direction?.Value ?? "N/A";
+      const gust = wind?.Speed10MinutesMax?.Value ?? "N/A";
+      const rwyTemp = rwyTemps[tempKey] ?? "N/A";
+      return `RWY ${name}: ${speed} kts from direction ${dir}°, RW Temperature ${rwyTemp}°C and gusts at ${gust} kts`;
+    };
+
+    document.getElementById('weather').innerHTML = `
+      <strong>Atmospheric Conditions:</strong>
+      Temperature: ${temp}°C<br>
+      Dew Point: ${dew}°C<br>
+      Humidity: ${rh}%<br>
+      Pressure: ${pressure} hPa<br><br>
+
+      <strong>Runway Winds & Temps:</strong><br>
+      ${formatRWY("01", wind01, "RWY Temp 01")}<br>
+      ${formatRWY("10", wind10, "RWY Temp 10")}<br>
+      ${formatRWY("19", wind19, "RWY Temp 19")}<br>
+      ${formatRWY("28", wind28, "RWY Temp 28")}<br><br>
+
+      <div id="wind-compass" class="compass">
+        <div class="arrow" id="wind-arrow"></div>
+      </div>
+    `;
+
+    // Rotate compass for RWY 01 (main direction indicator)
+    const windDir01 = wind01?.Direction?.Value ?? 0;
+    document.getElementById('wind-arrow').style.transform = `rotate(${windDir01}deg)`;
+
+  } catch (error) {
+    console.error("Weather API error:", error.message || error);
+    alert("Weather API error: " + (error.message || error));
+    document.getElementById('weather').innerText = "Failed to load weather.";
+  }
+}
 
 
 // ATIS
