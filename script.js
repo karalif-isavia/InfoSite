@@ -129,6 +129,7 @@ async function getDatis() {
     document.getElementById('datis').innerText = `${visibilityStatus}\n\n${text}`;
   } catch (error) {
     console.error("DATIS API error:", error.message || error);
+    alert("DATIS API error: " + (error.message || error));
     document.getElementById('datis').innerText = "Failed to load DATIS.";
   }
 }
