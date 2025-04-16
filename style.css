@@ -96,3 +96,24 @@ h1 {
   text-align: left;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
+
+.compass {
+  width: 100px;
+  height: 100px;
+  border: 3px solid white;
+  border-radius: 50%;
+  margin: 1rem auto;
+  position: relative;
+}
+
+.arrow {
+  width: 4px;
+  height: 40px;
+  background: red;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform-origin: bottom center;
+  transform: rotate(0deg);
+  transition: transform 0.5s ease;
+}

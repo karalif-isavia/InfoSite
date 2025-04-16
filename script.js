@@ -77,27 +77,34 @@ async function getWeather() {
     const windSpeed28 = wind28?.Speed?.Value ?? "N/A";
     const windDir28 = wind28?.Direction?.Value ?? "N/A";
 
-    // Update the weather section
+    // Update the weather section (including compass container)
     document.getElementById('weather').innerHTML = `
-      <strong>Atmospheric Conditions:</strong><br>
+      <strong>Atmospheric Conditions:</strong>
       Temperature: ${temp}°C<br>
       Dew Point: ${dew}°C<br>
-      Humidity: ${rh}%<br>
+      Humidity: ${rh}%<br><br>
 
-      <strong>Wind at Keflavík Airport:</strong><br>
-      Wind01: ${windSpeed01} kts from ${windDir01}°<br><br>
-
-      <strong>Runway Winds:</strong><br>
+      <strong>Runway Winds:</strong>
+      RWY 01: ${windSpeed01} kts from ${windDir01}°<br>
       RWY 10: ${windSpeed10} kts from ${windDir10}°<br>
       RWY 19: ${windSpeed19} kts from ${windDir19}°<br>
-      RWY 28: ${windSpeed28} kts from ${windDir28}°<br>
+      RWY 28: ${windSpeed28} kts from ${windDir28}°<br><br>
+
+      <div id="wind-compass" class="compass">
+        <div class="arrow" id="wind-arrow"></div>
+      </div>
     `;
+
+    // Now rotate the arrow (after the DOM is updated)
+    document.getElementById('wind-arrow').style.transform = `rotate(${windDir01}deg)`;
+    
   } catch (error) {
     console.error("Weather API error:", error.message || error);
     alert("Weather API error: " + (error.message || error));
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
+
 
 
 // DATIS
