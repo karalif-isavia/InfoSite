@@ -92,16 +92,25 @@ async function getDatis() {
     const text = await response.text();
 
     const hasLowVis = text.toUpperCase().includes("LOW VIS");
-    const visibilityStatus = hasLowVis ? "⚠️ LOW VIS" : "✅ NO LOW VIS";
 
-    document.getElementById('datis').innerText = `${visibilityStatus}\n\n${text}`;
+    // Extract ATIS letter (e.g., "ATIS C") and timestamp (e.g., "0823Z")
+    const atisMatch = text.match(/ATIS\s+([A-Z])/i);
+    const timeMatch = text.match(/(\d{4})Z/);
+
+    const atisLetter = atisMatch ? atisMatch[1] : "Unknown";
+    const timeZulu = timeMatch ? `${timeMatch[1].slice(0, 2)}:${timeMatch[1].slice(2)}Z` : "Time N/A";
+
+    const status = hasLowVis
+      ? `⚠️ Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})`
+      : `✅ No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})`;
+
+    document.getElementById('datis').innerText = status;
   } catch (error) {
     console.error("DATIS API error:", error.message || error);
     alert("DATIS API error: " + (error.message || error));
     document.getElementById('datis').innerText = "Failed to load DATIS.";
   }
 }
-
 
 getWeather();
 getDatis();
