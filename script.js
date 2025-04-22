@@ -114,21 +114,26 @@ async function getDatis() {
 
     const statusLine = hasLowVis
       ? `
-        <img src="https://flagcdn.com/w40/is.png" alt="IS" style="vertical-align: middle;"> <strong>Lágskyggnisástand (LVO) til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>
-        <img src="https://flagcdn.com/w40/gb.png" alt="GB" style="vertical-align: middle;"> <strong>Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
+        <div class="status-line">
+          <img src="https://flagcdn.com/w40/is.png" alt="IS" style="vertical-align: middle;"> <strong>Lágskyggnisástand (LVO) til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>
+          <img src="https://flagcdn.com/w40/gb.png" alt="GB" style="vertical-align: middle;"> <strong>Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
+        </div>
       `
       : `
-        <img src="https://flagcdn.com/w40/is.png" alt="IS" style="vertical-align: middle;"> <strong>Lágskyggnisástand (LVO) ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>
-        <img src="https://flagcdn.com/w40/gb.png" alt="GB" style="vertical-align: middle;"> <strong>No Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
+        <div class="status-line">
+          <img src="https://flagcdn.com/w40/is.png" alt="IS" style="vertical-align: middle;"> <strong>Lágskyggnisástand (LVO) ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>
+          <img src="https://flagcdn.com/w40/gb.png" alt="GB" style="vertical-align: middle;"> <strong>No Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
+        </div>
       `;
 
     // Info text about LVP procedures
     const procedureInfo = `
-    
-<strong>6.12 Lágskyggnis aðgerðir: </strong>
-Þegar LVO ástand er til staðar, er sérstakt verklag virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja verulega takmörkuð á umferðarsvæði flugvallarins og fjöldi einstaklinga og ökutækja að vinnu á flughlöðum takmarkaður að nauðsynlegu lágmarki. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan lágskyggni aðgerðir eru virkar.
-`;
-
+      <div class="procedure-info">
+        <strong>6.12 Lágskyggnis aðgerðir:</strong><br>
+        Þegar LVO ástand er til staðar, er sérstakt verklag virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja verulega takmörkuð á umferðarsvæði flugvallarins og fjöldi einstaklinga og ökutækja að vinnu á flughlöðum takmarkaður að nauðsynlegu lágmarki. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan lágskyggni aðgerðir eru virkar.
+      </div>
+    `;
+  
     // Update content
     const datisEl = document.getElementById('datis');
     datisEl.innerHTML = statusLine + procedureInfo;
