@@ -133,10 +133,10 @@ async function getDatis() {
   */
       const statusLine = hasLowVis
       ? `<span class="status-line">
-            <strong> 🚨 Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu}) 🚨</strong>
+            <strong> 🚨 Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter}, gefið út síðast kl. (${timeZulu}) 🚨</strong>
         </span>`
       : `<span class="status-line">
-            <strong> Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
+            <strong> Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter}, gefið út síðast kl. (${timeZulu})</strong>
         </span>`;
 
     // Info text about LVP procedures
