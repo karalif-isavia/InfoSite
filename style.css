@@ -131,3 +131,38 @@ h1 {
   transform: rotate(0deg);
   transition: transform 0.5s ease;
 }
+
+/* DATIS Banner Styling */
+.datis-banner {
+  font-size: 1rem;
+  padding: 1.5rem;
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  white-space: pre-line;
+  text-align: left;
+  max-width: 100%;
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  line-height: 1.5;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* NO LOW VIS */
+.lvo-inactive {
+  background: rgba(0, 128, 0, 0.2); /* green tint */
+  border-left: 6px solid limegreen;
+  color: #e0ffe0;
+}
+
+/* LOW VIS ACTIVE */
+.lvo-active {
+  background: rgba(200, 0, 0, 0.25); /* red tint */
+  border-left: 6px solid red;
+  color: #ffeaea;
+  animation: pulseAlert 2s infinite;
+}
+
+@keyframes pulseAlert {
+  0% { box-shadow: 0 0 8px rgba(255, 0, 0, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); }
+  100% { box-shadow: 0 0 8px rgba(255, 0, 0, 0.3); }
+}

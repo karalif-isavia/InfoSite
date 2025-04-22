@@ -93,34 +93,41 @@ async function getDatis() {
 
     const hasLowVis = text.toUpperCase().includes("LOW VIS");
 
-    // Extract ATIS letter (e.g. "ATIS C")
+    // Extract ATIS letter (e.g. "C")
     const atisMatch = text.match(/ATIS\s+([A-Z])/i);
     const atisLetter = atisMatch ? atisMatch[1] : "Unknown";
 
-    // Extract the ATIS timestamp (line immediately after the ATIS line)
+    // Extract the timestamp directly under the ATIS line (e.g. 0823Z → 08:23Z)
     const lines = text.split('\n');
     const atisIndex = lines.findIndex(line => /ATIS\s+[A-Z]/i.test(line));
     const rawTimestamp = lines[atisIndex + 1]?.match(/(\d{4})Z/);
     const timeZulu = rawTimestamp ? `${rawTimestamp[1].slice(0, 2)}:${rawTimestamp[1].slice(2)}Z` : "Time N/A";
 
+    // LVP status banner text
     const statusLine = hasLowVis
       ? `⚠️ <strong>LVO ástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>⚠️ <strong>Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`
       : `✅ <strong>LVO ástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>✅ <strong>No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
 
+    // Info text about LVP procedures
     const procedureInfo = `
 <br><br>
 <strong>6.12 Lágskyggnis aðgerðir</strong><br>
 Þegar LVO ástand er til staðar, er sérstakt verklag virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja verulega takmörkuð á umferðarsvæði flugvallarins og fjöldi einstaklinga og ökutækja að vinnu á flughlöðum takmarkaður að nauðsynlegu lágmarki. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan lágskyggni aðgerðir eru virkar.
 `;
 
-    document.getElementById('datis').innerHTML = statusLine + procedureInfo;
+    // Update content
+    const datisEl = document.getElementById('datis');
+    datisEl.innerHTML = statusLine + procedureInfo;
+
+    // Update styling class
+    datisEl.className = hasLowVis ? 'datis-banner lvo-active' : 'datis-banner lvo-inactive';
+
   } catch (error) {
     console.error("DATIS API error:", error.message || error);
     alert("DATIS API error: " + (error.message || error));
     document.getElementById('datis').innerText = "Failed to load DATIS.";
   }
 }
-
 
 
 getWeather();
