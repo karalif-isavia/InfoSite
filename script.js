@@ -78,8 +78,8 @@ async function getWeather() {
     `;
 
     // Rotate compass for RWY 01 (main direction indicator)
-    const windDir01 = wind01?.Direction?.Value ?? 0;
-    document.getElementById('wind-arrow').style.transform = `rotate(${windDir01}deg)`;
+    //const windDir01 = wind01?.Direction?.Value ?? 0;
+    //document.getElementById('wind-arrow').style.transform = `rotate(${windDir01}deg)`;
 
   } catch (error) {
     console.error("Weather API error:", error.message || error);
@@ -108,10 +108,6 @@ async function getDatis() {
     const timeZulu = rawTimestamp ? `${rawTimestamp[1].slice(0, 2)}:${rawTimestamp[1].slice(2)}Z` : "Time N/A";
 
     // LVP status banner text
-    //const statusLine = hasLowVis
-    //  ? `⚠️ <strong>Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`
-    //  : `✅ <strong>Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
-
     const statusLine = hasLowVis
     ? `<span class="status-line">
           <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon"> <strong> Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
