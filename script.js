@@ -108,9 +108,13 @@ async function getDatis() {
     const timeZulu = rawTimestamp ? `${rawTimestamp[1].slice(0, 2)}:${rawTimestamp[1].slice(2)}Z` : "Time N/A";
 
     // LVP status banner text
+    //const statusLine = hasLowVis
+    //  ? `⚠️ <strong>Lágskyggnisástand (LVO) til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>`
+    //  : `✅ <strong>Lágskyggnisástand (LVO) ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>No Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
+
     const statusLine = hasLowVis
-      ? `⚠️ <strong>LVO ástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`
-      : `✅ <strong>LVO ástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
+      ? `🇮🇸 <strong>Lágskyggnisástand (LVO) til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / 🇬🇧 <strong>Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>`
+      : `🇮🇸 <strong>Lágskyggnisástand (LVO) ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / 🇬🇧 <strong>No Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
 
     // Info text about LVP procedures
     const procedureInfo = `
