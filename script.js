@@ -93,24 +93,35 @@ async function getDatis() {
 
     const hasLowVis = text.toUpperCase().includes("LOW VIS");
 
-    // Extract ATIS letter (e.g., "ATIS C") and timestamp (e.g., "0823Z")
+    // Extract ATIS letter (e.g. "ATIS C")
     const atisMatch = text.match(/ATIS\s+([A-Z])/i);
-    const timeMatch = text.match(/(\d{4})Z/);
-
     const atisLetter = atisMatch ? atisMatch[1] : "Unknown";
-    const timeZulu = timeMatch ? `${timeMatch[1].slice(0, 2)}:${timeMatch[1].slice(2)}Z` : "Time N/A";
 
-    const status = hasLowVis
-      ? `⚠️ Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})`
-      : `✅ No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})`;
+    // Extract the ATIS timestamp (line immediately after the ATIS line)
+    const lines = text.split('\n');
+    const atisIndex = lines.findIndex(line => /ATIS\s+[A-Z]/i.test(line));
+    const rawTimestamp = lines[atisIndex + 1]?.match(/(\d{4})Z/);
+    const timeZulu = rawTimestamp ? `${rawTimestamp[1].slice(0, 2)}:${rawTimestamp[1].slice(2)}Z` : "Time N/A";
 
-    document.getElementById('datis').innerText = status;
+    const statusLine = hasLowVis
+      ? `⚠️ <strong>LVO ástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>⚠️ <strong>Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`
+      : `✅ <strong>LVO ástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>✅ <strong>No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
+
+    const procedureInfo = `
+<br><br>
+<strong>6.12 Lágskyggnis aðgerðir</strong><br>
+Þegar LVO ástand er til staðar, er sérstakt verklag virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja verulega takmörkuð á umferðarsvæði flugvallarins og fjöldi einstaklinga og ökutækja að vinnu á flughlöðum takmarkaður að nauðsynlegu lágmarki. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan lágskyggni aðgerðir eru virkar.
+`;
+
+    document.getElementById('datis').innerHTML = statusLine + procedureInfo;
   } catch (error) {
     console.error("DATIS API error:", error.message || error);
     alert("DATIS API error: " + (error.message || error));
     document.getElementById('datis').innerText = "Failed to load DATIS.";
   }
 }
+
+
 
 getWeather();
 getDatis();
