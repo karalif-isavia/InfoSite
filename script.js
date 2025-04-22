@@ -114,7 +114,6 @@ async function getDatis() {
 
     // Info text about LVP procedures
     const procedureInfo = `
-<br>
 <strong>6.12 Lágskyggnis aðgerðir: </strong>
 Þegar LVO ástand er til staðar, er sérstakt verklag virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja verulega takmörkuð á umferðarsvæði flugvallarins og fjöldi einstaklinga og ökutækja að vinnu á flughlöðum takmarkaður að nauðsynlegu lágmarki. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan lágskyggni aðgerðir eru virkar.
 `;
