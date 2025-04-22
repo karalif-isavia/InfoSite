@@ -105,8 +105,8 @@ async function getDatis() {
 
     // LVP status banner text
     const statusLine = hasLowVis
-      ? `⚠️ <strong>LVO ástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>⚠️ <strong>Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`
-      : `✅ <strong>LVO ástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong><br>✅ <strong>No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
+      ? `⚠️ <strong>LVO ástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`
+      : `✅ <strong>LVO ástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
 
     // Info text about LVP procedures
     const procedureInfo = `
