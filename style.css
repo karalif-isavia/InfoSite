@@ -7,7 +7,13 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom right, #2c3e50, #3498db);
+  /*background: linear-gradient(to bottom right, #2c3e50, #3498db); */
+  
+  /* Testing to see the background picture */
+  background: url('./images/isavia_backgroun.png') no-repeat center center fixed;
+  background-size: cover;
+  /* end */
+
   color: #fff;
   display: flex;
   justify-content: center;
