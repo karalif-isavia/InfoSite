@@ -7,13 +7,8 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  /*background: linear-gradient(to bottom right, #2c3e50, #3498db); */
-  
-  /* Testing to see the background picture */
   background: url('./images/isavia_backgroun.png') no-repeat center center fixed;
   background-size: cover;
-  /* end */
-
   color: #fff;
   display: flex;
   justify-content: center;
@@ -22,14 +17,12 @@ body {
   padding: 2rem;
 }
 
-/* Container */
 .container {
   text-align: center;
-  max-width: 1500px; /* was 700px */
+  max-width: 1500px; 
   width: 100%;
 }
 
-/* Heading */
 h1 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
@@ -37,7 +30,6 @@ h1 {
   text-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
-/* Digital Clock */
 #time {
   font-size: 6rem;
   font-weight: bold;
@@ -62,7 +54,6 @@ h1 {
   opacity: 0.95;
 }
 
-/* Weather Card */
 #weather {
   position: relative;
   padding: 2rem;
@@ -77,7 +68,6 @@ h1 {
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
-/* Weather background image */
 #weather::before {
   content: "";
   position: absolute;
@@ -92,7 +82,6 @@ h1 {
   max-width: 100%;
 }
 
-/* Weather text on top of background */
 #weather > * {
   position: relative;
   z-index: 1;
@@ -104,7 +93,6 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-/* DATIS */
 #datis {
   font-size: 1rem;
   background: rgba(255, 255, 255, 0.1);
@@ -118,14 +106,14 @@ h1 {
 }
 
 .datis-banner .status-line {
-  font-size: 1.6rem;        /* Make it larger */
+  font-size: 1.4rem;
   font-weight: 600;
-  display: inline-block;    /* Keep it inline */
+  display: inline-block;
   line-height: 1.3;
 }
 
 .datis-banner .procedure-info {
-  font-size: 1.25rem;     /* subtle bump */
+  font-size: 1.25rem;
   line-height: 1.7;
   margin-top: 1rem;
 }
@@ -134,7 +122,7 @@ h1 {
   width: 24px;
   height: auto;
   vertical-align: middle;
-  margin: 0 0.4rem 0 0.6rem; /* spacing around the flag */
+  margin: 0 0.4rem 0 0.6rem; 
 }
 
 .compass {
@@ -158,7 +146,6 @@ h1 {
   transition: transform 0.5s ease;
 }
 
-/* DATIS Banner Styling */
 .datis-banner {
   font-size: 1.75rem;
   padding: 1.5rem;
@@ -172,16 +159,14 @@ h1 {
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* NO LOW VIS */
 .lvo-inactive {
-  background: rgba(0, 128, 0, 0.2); /* green tint */
+  background: rgba(0, 128, 0, 0.2); 
   border-left: 6px solid limegreen;
   color: #e0ffe0;
 }
 
-/* LOW VIS ACTIVE */
 .lvo-active {
-  background: rgba(200, 0, 0, 0.25); /* red tint */
+  background: rgba(200, 0, 0, 0.25);
   border-left: 6px solid red;
   color: #ffeaea;
   animation: pulseAlert 2s infinite;

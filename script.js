@@ -109,17 +109,17 @@ async function getDatis() {
 
     // LVP status banner text
     //const statusLine = hasLowVis
-    //  ? `⚠️ <strong>Lágskyggnisástand (LVO) til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>`
-    //  : `✅ <strong>Lágskyggnisástand (LVO) ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>No Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
+    //  ? `⚠️ <strong>Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`
+    //  : `✅ <strong>Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> / <strong>No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>`;
 
     const statusLine = hasLowVis
     ? `<span class="status-line">
-          <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon"> <strong>Lágskyggnisástand (LVO) til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
-          <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon"> <strong>Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
+          <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon"> <strong> Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
+          <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon"> <strong> Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>
        </span>`
     : `<span class="status-line">
-          <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon"><strong>Lágskyggnisástand (LVO) ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
-          <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon"><strong>No Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
+          <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon"><strong> Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
+          <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon"><strong> No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>
        </span>`;
   
     // Info text about LVP procedures
