@@ -78,13 +78,13 @@ async function getWeather() {
     document.getElementById('weather').innerHTML = `
       <div class="weather-columns">
         <div class="weather-left">
-          <strong>Atmospheric Conditions:</strong><br>
-          Temperature: ${temp}°C<br>
-          Dew Point: ${dew}°C<br>
-          Humidity: ${rh}%
+          <strong>Rauntíma veður</strong><br>
+          Hitastig: ${temp}°C<br>
+          Daggarmark: ${dew}°C<br>
+          Raki: ${rh}%
         </div>
         <div class="weather-right">
-          <strong>Runway Winds & Temps:</strong><br>
+          <strong>Brautarmælingar</strong><br>
           ${formatRWY("01", wind01, "RWY Temp 01")}<br>
           ${formatRWY("10", wind10, "RWY Temp 10")}<br>
           ${formatRWY("19", wind19, "RWY Temp 19")}<br>
