@@ -118,16 +118,23 @@ h1 {
 }
 
 .datis-banner .status-line {
-  font-size: 2rem;        /* make it big and bold */
+  font-size: 1.6rem;        /* Make it larger */
   font-weight: 600;
-  margin-bottom: 1rem;
-  display: block;
+  display: inline-block;    /* Keep it inline */
+  line-height: 1.3;
 }
 
 .datis-banner .procedure-info {
   font-size: 1.25rem;     /* subtle bump */
   line-height: 1.7;
   margin-top: 1rem;
+}
+
+.flag-icon {
+  width: 24px;
+  height: auto;
+  vertical-align: middle;
+  margin: 0 0.4rem 0 0.6rem; /* spacing around the flag */
 }
 
 .compass {
