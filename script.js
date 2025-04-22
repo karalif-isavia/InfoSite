@@ -121,7 +121,7 @@ async function getDatis() {
     const timeZulu = rawTimestamp ? `${rawTimestamp[1].slice(0, 2)}:${rawTimestamp[1].slice(2)}Z` : "Time N/A";
 
     // LVP status banner text
-    const statusLine = hasLowVis
+    /*const statusLine = hasLowVis
     ? `<span class="status-line">
           <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon"> <strong> Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
           <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon"> <strong> Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>
@@ -130,7 +130,15 @@ async function getDatis() {
           <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon"><strong> Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
           <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon"><strong> No Low Visibility Procedure in place for ATIS ${atisLetter} (${timeZulu})</strong>
        </span>`;
-  
+  */
+      const statusLine = hasLowVis
+      ? `<span class="status-line">
+            <strong> 🚨 Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter} (${timeZulu}) 🚨</strong>
+        </span>`
+      : `<span class="status-line">
+            <strong> Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
+        </span>`;
+
     // Info text about LVP procedures
     const procedureInfo = `
       <div class="procedure-info">
