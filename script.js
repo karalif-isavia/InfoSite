@@ -73,27 +73,26 @@ async function getWeather() {
       ${formatRWY("28", wind28, "RWY Temp 28")}<br>
     `;
 
-    /*document.getElementById('weather').innerHTML = `
-      <strong>Atmospheric Conditions:</strong>
-      Temperature: ${temp}°C<br>
-      Dew Point: ${dew}°C<br>
-      Humidity: ${rh}%<br>
+  // document.getElementById('weather').innerHTML = `
+  //   <strong>Atmospheric Conditions:</strong>
+  //   Temperature: ${temp}°C<br>
+  //   Dew Point: ${dew}°C<br>
+  //   Humidity: ${rh}%<br>
 
-      <strong>Runway Winds & Temps:</strong><br>
-      ${formatRWY("01", wind01, "RWY Temp 01")}<br>
-      ${formatRWY("10", wind10, "RWY Temp 10")}<br>
-      ${formatRWY("19", wind19, "RWY Temp 19")}<br>
-      ${formatRWY("28", wind28, "RWY Temp 28")}<br><br>
+  //   <strong>Runway Winds & Temps:</strong><br>
+  //   ${formatRWY("01", wind01, "RWY Temp 01")}<br>
+  //   ${formatRWY("10", wind10, "RWY Temp 10")}<br>
+  //   ${formatRWY("19", wind19, "RWY Temp 19")}<br>
+  //   ${formatRWY("28", wind28, "RWY Temp 28")}<br><br>
 
-      <div id="wind-compass" class="compass">
-        <div class="arrow" id="wind-arrow"></div>
-      </div>
-    `;
+  //   <div id="wind-compass" class="compass">
+  //     <div class="arrow" id="wind-arrow"></div>
+  //   </div>
+  // `;
 
-    // Rotate compass for RWY 01 (main direction indicator)
-    const windDir01 = wind01?.Direction?.Value ?? 0;
-    document.getElementById('wind-arrow').style.transform = `rotate(${windDir01}deg)`;
-  */
+  // const windDir01 = wind01?.Direction?.Value ?? 0;
+  // document.getElementById('wind-arrow').style.transform = `rotate(${windDir01}deg)`;
+
   } catch (error) {
     console.error("Weather API error:", error.message || error);
     alert("Weather API error: " + (error.message || error));
