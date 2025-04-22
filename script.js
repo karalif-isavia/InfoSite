@@ -2,20 +2,24 @@
 function updateTime() {
   const now = new Date();
 
-  const timeStr = now.toLocaleTimeString('en-GB', {
+  const timeStr = now.toLocaleTimeString('is-IS', {
     timeZone: 'Atlantic/Reykjavik',
     hour12: false
   });
 
-  const dateStr = now.toLocaleDateString('en-GB', {
+  const dateStr = now.toLocaleDateString('is-IS', {
     timeZone: 'Atlantic/Reykjavik',
     weekday: 'long',
     day: 'numeric',
     month: 'long'
   });
 
+  // Capitalize the first letter of the weekday
+  const formattedDate =
+    dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
   document.getElementById('time').innerText = timeStr;
-  document.getElementById('date').innerText = dateStr;
+  document.getElementById('date').innerText = formattedDate;
 }
 
 setInterval(updateTime, 1000);
@@ -111,7 +115,7 @@ async function getDatis() {
     // Info text about LVP procedures
     const procedureInfo = `
 <br>
-<strong>6.12 Lágskyggnis aðgerðir</strong><br>
+<strong>6.12 Lágskyggnis aðgerðir: </strong>
 Þegar LVO ástand er til staðar, er sérstakt verklag virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja verulega takmörkuð á umferðarsvæði flugvallarins og fjöldi einstaklinga og ökutækja að vinnu á flughlöðum takmarkaður að nauðsynlegu lágmarki. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan lágskyggni aðgerðir eru virkar.
 `;
 
