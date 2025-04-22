@@ -172,26 +172,19 @@ h1 {
   animation: pulseAlert 2s infinite;
 }
 
-#info-box {
-  background: rgba(255, 255, 255, 0.1);
-  border-left: 6px solid #3498db;
+.info-banner {
+  font-size: 1.6rem;
+  background: rgba(0, 119, 255, 0.2);
+  border-left: 6px solid #00aaff;
   padding: 1.5rem;
   border-radius: 12px;
-  font-size: 1.5rem;
-  color: #ffffff;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  margin-bottom: 2rem;
+  backdrop-filter: blur(5px);
+  color: #e0f4ff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   text-align: left;
-  line-height: 1.5;
-  display: flex;
-  align-items: center;
-}
-
-#info-box::before {
-  content: "ℹ️";
-  font-size: 1.8rem;
-  margin-right: 0.75rem;
+  max-width: 100%;
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
 @keyframes pulseAlert {
