@@ -2,25 +2,25 @@
 function updateTime() {
   const now = new Date();
 
-  const timeStr = now.toLocaleTimeString('is-IS', {
+  const timeStr = now.toLocaleTimeString('en-GB', {
     timeZone: 'Atlantic/Reykjavik',
     hour12: false
   });
 
-  const dateStr = now.toLocaleDateString('is-IS', {
-    timeZone: 'Atlantic/Reykjavik',
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long'
-  });
+  // Icelandic weekdays and months
+  const weekdays = ['Sunnudagur', 'Mánudagur', 'Þriðjudagur', 'Miðvikudagur', 'Fimmtudagur', 'Föstudagur', 'Laugardagur'];
+  const months = ['janúar', 'febrúar', 'mars', 'apríl', 'maí', 'júní', 'júlí', 'ágúst', 'september', 'október', 'nóvember', 'desember'];
 
-  // Capitalize the first letter of the weekday
-  const formattedDate =
-    dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+  const weekday = weekdays[now.getDay()];
+  const day = now.getDate();
+  const month = months[now.getMonth()];
+
+  const dateStr = `${weekday} ${day}. ${month}`;
 
   document.getElementById('time').innerText = timeStr;
-  document.getElementById('date').innerText = formattedDate;
+  document.getElementById('date').innerText = dateStr;
 }
+
 
 setInterval(updateTime, 1000);
 updateTime();
