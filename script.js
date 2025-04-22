@@ -114,16 +114,12 @@ async function getDatis() {
 
     const statusLine = hasLowVis
     ? `<span class="status-line">
-          <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon">
-          <strong>Lágskyggnisástand (LVO) til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> /
-          <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon">
-          <strong>Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
+          <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon"> <strong>Lágskyggnisástand (LVO) til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
+          <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon"> <strong>Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
        </span>`
     : `<span class="status-line">
-          <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon">
-          <strong>Lágskyggnisástand (LVO) ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong> /
-          <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon">
-          <strong>No Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
+          <img src="https://flagcdn.com/w40/is.png" alt="IS" class="flag-icon"><strong>Lágskyggnisástand (LVO) ekki til staðar samkvæmt ATIS ${atisLetter} (${timeZulu})</strong>
+          <img src="https://flagcdn.com/w40/gb.png" alt="GB" class="flag-icon"><strong>No Low Visibility Procedure (LVP) in place for ATIS ${atisLetter} (${timeZulu})</strong>
        </span>`;
   
     // Info text about LVP procedures
