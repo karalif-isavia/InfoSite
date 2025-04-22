@@ -187,6 +187,14 @@ h1 {
   line-height: 1.6;
 }
 
+.info-banner::before {
+  content: "ℹ️";
+  font-size: 1.8rem;
+  margin-right: 0.6rem;
+}
+
+
+
 @keyframes pulseAlert {
   0% { box-shadow: 0 0 8px rgba(255, 0, 0, 0.3); }
   50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); }
