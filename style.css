@@ -193,6 +193,25 @@ h1 {
   margin-right: 0.6rem;
 }
 
+.weather-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap; /* Allows stacking on small screens */
+}
+
+.weather-left,
+.weather-right {
+  flex: 1;
+  min-width: 300px;
+}
+
+.weather-left strong,
+.weather-right strong {
+  font-size: 1.4rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
 
 
 @keyframes pulseAlert {
