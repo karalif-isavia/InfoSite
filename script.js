@@ -92,7 +92,6 @@ async function getWeather() {
     </div>
   `;
   
-  
 
   } catch (error) {
     console.error("Weather API error:", error.message || error);
@@ -100,7 +99,6 @@ async function getWeather() {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
-
 
 async function fetchWeatherIcon() {
   const latitude = 63.985; // Keflavík Airport latitude
