@@ -163,7 +163,7 @@ async function getDatis() {
     const lines = text.split('\n');
     const atisIndex = lines.findIndex(line => /ATIS\s+[A-Z]/i.test(line));
     const rawTimestamp = lines[atisIndex + 1]?.match(/(\d{4})Z/);
-    const timeZulu = rawTimestamp ? `${rawTimestamp[1].slice(0, 2)}:${rawTimestamp[1].slice(2)}Z` : "Time N/A";
+    const timeZulu = rawTimestamp ? `${rawTimestamp[1].slice(0, 2)}:${rawTimestamp[1].slice(2)}` : "Time N/A";
 
     // LVP status banner text
     /*const statusLine = hasLowVis
@@ -178,10 +178,10 @@ async function getDatis() {
   */
       const statusLine = hasLowVis
       ? `<span class="status-line">
-            <strong> 🚨 Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter}, gefið út síðast kl. (${timeZulu}) 🚨</strong>
+            <strong> 🚨 Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter}, gefið út síðast kl. ${timeZulu} 🚨</strong>
         </span>`
       : `<span class="status-line">
-            <strong> Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter}, gefið út síðast kl. (${timeZulu})</strong>
+            <strong> Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter}, gefið út síðast kl. ${timeZulu}</strong>
         </span>`;
 
     // Info text about LVP procedures
