@@ -81,15 +81,13 @@ async function getWeather() {
         Direction (RWY 19): ${windDirRWY19}°
       </div>
       <div class="weather-arrow">
-        <strong>Direction</strong>
-        <div class="wind-arrow-container">
-          <div class="wind-arrow" style="transform: rotate(${windDirRWY19}deg);"></div>
-          <div class="wind-arrow-label">N</div>
-        </div>
+        <strong>Wind Direction</strong>
+        <div class="arrow-visual" style="transform: rotate(${windDirRWY19}deg);"></div>
       </div>
     </div>
   `;
   
+
 
   } catch (error) {
     console.error("Weather API error:", error.message || error);

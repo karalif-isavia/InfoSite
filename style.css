@@ -218,44 +218,30 @@ h1 {
   flex: 1;
   min-width: 300px;
   font-size: 1.6rem;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
-.wind-arrow-container {
-  position: relative;
+.arrow-visual {
   width: 80px;
-  height: 80px;
+  height: 40px;
   margin-top: 1rem;
-  border: 3px solid #333;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.wind-arrow {
-  width: 6px;
-  height: 35px;
-  background-color: #333;
-  position: absolute;
-  bottom: 50%;
-  left: 50%;
-  transform-origin: bottom center;
+  background-color: #B0C8FC; /* Your desired color */
+  clip-path: polygon(
+    0% 50%, 
+    60% 50%, 
+    60% 30%, 
+    100% 60%, 
+    60% 90%, 
+    60% 70%, 
+    0% 70%
+  );
+  transform-origin: 50% 50%;
   transition: transform 0.5s ease;
 }
-
-.wind-arrow-label {
-  position: absolute;
-  top: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
 
 @keyframes pulseAlert {
   0% { box-shadow: 0 0 8px rgba(255, 0, 0, 0.3); }
