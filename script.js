@@ -79,6 +79,7 @@ async function getWeather() {
         Avg Speed: ${windSpeedAvg} kts<br>
         Gust: ${gustAvg} kts<br>
         Direction (RWY 19): ${windDirRWY19}°
+        <div class="arrow-visual arrow-duplicate" style="transform: rotate(${parseFloat(windDirRWY19) - 90}deg);"></div>
       </div>
       <div class="weather-arrow">
         <strong>Wind Direction</strong>
@@ -86,6 +87,7 @@ async function getWeather() {
       </div>
     </div>
   `;
+  
 
   } catch (error) {
     console.error("Weather API error:", error.message || error);
