@@ -274,6 +274,12 @@ h1 {
   filter: drop-shadow(0 0 8px rgba(255, 200, 0, 0.4));
 }
 
+.weather-icon {
+  width: 100px;
+  height: 100px;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.2));
+}
+
 
 
 @keyframes pulseAlert {

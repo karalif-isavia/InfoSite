@@ -76,7 +76,7 @@ async function getWeather() {
       </div>
   
       <div class="weather-picture">
-        <img src="https://www.svgrepo.com/show/13648/sun.svg" alt="Sun" class="sun-icon" />
+        <img id="weather-icon" src="" alt="Weather Icon" class="weather-icon" />
       </div>
   
       <div class="weather-right">
@@ -100,6 +100,55 @@ async function getWeather() {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
+
+
+async function fetchWeatherIcon() {
+  const latitude = 63.985; // Keflavík Airport latitude
+  const longitude = -22.605; // Keflavík Airport longitude
+  const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=weathercode&timezone=auto`;
+
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    const weatherCode = data.current.weathercode;
+
+    // Map the weather code to an appropriate icon
+    const iconUrl = mapWeatherCodeToIcon(weatherCode);
+
+    // Update the image source in your HTML
+    document.getElementById('weather-icon').src = iconUrl;
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+  }
+}
+
+function mapWeatherCodeToIcon(code) {
+  const weatherIcons = {
+    0: 'icons/clear.png',            // Clear sky
+    1: 'icons/mainly_clear.png',     // Mainly clear
+    2: 'icons/partly_cloudy.png',    // Partly cloudy
+    3: 'icons/overcast.png',         // Overcast
+    45: 'icons/fog.png',             // Fog
+    48: 'icons/depositing_rime_fog.png', // Depositing rime fog
+    51: 'icons/light_drizzle.png',   // Light drizzle
+    53: 'icons/moderate_drizzle.png',// Moderate drizzle
+    55: 'icons/dense_drizzle.png',   // Dense drizzle
+    61: 'icons/slight_rain.png',     // Slight rain
+    63: 'icons/moderate_rain.png',   // Moderate rain
+    65: 'icons/heavy_rain.png',      // Heavy rain
+    71: 'icons/slight_snow.png',     // Slight snow
+    73: 'icons/moderate_snow.png',   // Moderate snow
+    75: 'icons/heavy_snow.png',      // Heavy snow
+    95: 'icons/thunderstorm.png',    // Thunderstorm
+    // Add more mappings as needed
+  };
+
+  return weatherIcons[code] || 'icons/default.png'; // Fallback icon
+}
+
+window.onload = function() {
+  fetchWeatherIcon();
+};
 
 
 // ATIS
