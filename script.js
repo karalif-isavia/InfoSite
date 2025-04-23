@@ -39,56 +39,45 @@ async function getWeather() {
     const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
 
     // Wind sensors
-    const getWind = id => data.Sensors.Wind.find(w => w.Id === id) || {};
+    const windSensors = data.Sensors.Wind;
+    const getWind = id => windSensors.find(w => w.Id === id) || {};
     const wind01 = getWind("Wind01");
     const wind10 = getWind("Wind10");
     const wind19 = getWind("Wind19");
     const wind28 = getWind("Wind28");
 
-    // Runway temperatures
-    const rwyTemps = data.Sensors.TempRwy.Parameters.reduce((acc, param) => {
-      acc[param.Name] = param.Value;
-      return acc;
-    }, {});
+    // Runway temperatures (commented out)
+    // const rwyTemps = data.Sensors.TempRwy.Parameters.reduce((acc, param) => {
+    //   acc[param.Name] = param.Value;
+    //   return acc;
+    // }, {});
 
-    // Helper to extract values cleanly
-    const formatRWY = (name, wind, tempKey) => {
-      const speed = wind?.Speed?.Value ?? "N/A";
-      const dir = wind?.Direction?.Value ?? "N/A";
-      const gust = wind?.Speed10MinutesMax?.Value ?? "N/A";
-      const rwyTemp = rwyTemps[tempKey] ?? "N/A";
-      return `RWY ${name}: ${speed} kts from direction ${dir}°, RW Temp ${rwyTemp}°C and gusts at ${gust} kts`;
-    };
+    // const formatRWY = (name, wind, tempKey) => {
+    //   const speed = wind?.Speed?.Value ?? "N/A";
+    //   const dir = wind?.Direction?.Value ?? "N/A";
+    //   const gust = wind?.Speed10MinutesMax?.Value ?? "N/A";
+    //   const rwyTemp = rwyTemps[tempKey] ?? "N/A";
+    //   return `RWY ${name}: ${speed} kts from direction ${dir}°, RW Temp ${rwyTemp}°C and gusts at ${gust} kts`;
+    // };
 
-    /*
-    document.getElementById('weather').innerHTML = `
-      <strong>Atmospheric Conditions:</strong>
-      Temperature: ${temp}°C<br>
-      Dew Point: ${dew}°C<br>
-      Humidity: ${rh}%<br>
-
-      <strong>Runway Winds & Temps:</strong><br>
-      ${formatRWY("01", wind01, "RWY Temp 01")}<br>
-      ${formatRWY("10", wind10, "RWY Temp 10")}<br>
-      ${formatRWY("19", wind19, "RWY Temp 19")}<br>
-      ${formatRWY("28", wind28, "RWY Temp 28")}<br>
-    `;
-    */
+    const avg = arr => arr.reduce((sum, val) => sum + parseFloat(val), 0) / arr.length;
+    const windSpeedAvg = avg(windSensors.map(w => w?.Speed?.Value ?? 0)).toFixed(1);
+    const gustAvg = avg(windSensors.map(w => w?.Speed10MinutesMax?.Value ?? 0)).toFixed(1);
+    const windDirRWY19 = wind19?.Direction?.Value ?? "N/A";
 
     document.getElementById('weather').innerHTML = `
       <div class="weather-columns">
         <div class="weather-left">
-          <strong>Rauntíma veður</strong><br>
-          Hitastig: ${temp}°C<br>
-          Daggarmark: ${dew}°C<br>
-          Raki: ${rh}%
+          <strong>Weather Information</strong><br>
+          Temp: ${temp}°C<br>
+          Dew: ${dew}°C<br>
+          RH: ${rh}%
         </div>
         <div class="weather-right">
-          <strong>Brautarmælingar</strong><br>
-          ${formatRWY("01", wind01, "RWY Temp 01")}<br>
-          ${formatRWY("10", wind10, "RWY Temp 10")}<br>
-          ${formatRWY("19", wind19, "RWY Temp 19")}<br>
-          ${formatRWY("28", wind28, "RWY Temp 28")}
+          <strong>Wind</strong><br>
+          Avg Speed: ${windSpeedAvg} kts<br>
+          Gust: ${gustAvg} kts<br>
+          Direction (RWY 19): ${windDirRWY19}°
         </div>
       </div>
     `;
