@@ -69,7 +69,6 @@ async function getWeather() {
     document.getElementById('weather').innerHTML = `
     <div class="weather-columns">
       <div class="weather-left">
-        <strong>Weather Information</strong><br>
         Temp: ${temp}°C<br>
         Dew: ${dew}°C<br>
         RH: ${rh}%
@@ -80,7 +79,6 @@ async function getWeather() {
       </div>
   
       <div class="weather-right">
-        <strong>Wind</strong><br>
         Avg Speed: ${windSpeedAvg} kts<br>
         Gust: ${gustAvg} kts<br>
         Direction (RWY 19): ${windDirRWY19}°
