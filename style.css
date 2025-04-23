@@ -34,14 +34,15 @@ h1 {
   font-size: 6rem;
   font-weight: bold;
   font-family: 'Courier New', monospace;
-  background: rgba(255, 255, 255, 0.15);
+  background: #B0C8FC; /* CHANGED */
   padding: 1.2rem 2.5rem;
   border-radius: 20px;
   margin-bottom: 2.5rem;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(8px);
+  color: #000; /* Optional: dark text for readability */
   max-width: 100%;
 }
+
 
 #time-container {
   margin-bottom: 2rem;
@@ -62,14 +63,14 @@ h1 {
   text-align: left;
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(6px);
-  color: white;
+  background: #B0C8FC; /* CHANGED */
+  color: #000; /* Optional: dark text */
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
+/* Commenting out background image inside weather box */
 #weather::before {
-  content: "";
+  /* content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -78,8 +79,8 @@ h1 {
   background: url('https://images.unsplash.com/photo-1501973801540-537f08ccae7e?auto=format&fit=crop&w=1400&q=80') no-repeat center center;
   background-size: cover;
   opacity: 0.25;
-  z-index: 0;
-  max-width: 100%;
+  z-index: 0; */
+  display: none;
 }
 
 #weather > * {
@@ -95,15 +96,16 @@ h1 {
 
 #datis {
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: #B0C8FC; /* CHANGED */
   padding: 1.5rem;
   border-radius: 10px;
-  backdrop-filter: blur(4px);
   white-space: pre-line;
   text-align: left;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  color: #000; /* Optional: dark text */
   max-width: 100%;
 }
+
 
 .datis-banner .status-line {
   font-size: 1.4rem;
@@ -160,17 +162,17 @@ h1 {
 }
 
 .lvo-inactive {
-  background: rgba(0, 128, 0, 0.2); 
-  border-left: 6px solid limegreen;
-  color: #e0ffe0;
+  background: rgba(80, 170, 255, 0.25); /* subtle contrast */
+  border-left: 6px solid #5e9eff;
+  color: #000;
 }
 
 .lvo-active {
-  background: rgba(200, 0, 0, 0.25);
+  background: rgba(255, 100, 100, 0.25);
   border-left: 6px solid red;
-  color: #ffeaea;
-  animation: pulseAlert 2s infinite;
+  color: #000;
 }
+
 
 .info-banner {
   font-size: 1.6rem;
