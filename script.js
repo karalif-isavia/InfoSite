@@ -101,8 +101,8 @@ async function getWeather() {
 }
 
 async function fetchWeatherIcon() {
-  const latitude = 63.985; // Keflavík Airport latitude
-  const longitude = -22.605; // Keflavík Airport longitude
+  const latitude = 63.985; // Keflavík Airport
+  const longitude = -22.605;
   const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=weathercode&timezone=auto`;
 
   try {
@@ -110,39 +110,38 @@ async function fetchWeatherIcon() {
     const data = await response.json();
     const weatherCode = data.current.weathercode;
 
-    // Map the weather code to an appropriate icon
     const iconUrl = mapWeatherCodeToIcon(weatherCode);
-
-    // Update the image source in your HTML
     document.getElementById('weather-icon').src = iconUrl;
   } catch (error) {
-    console.error('Error fetching weather data:', error);
+    console.error("Error fetching weather icon:", error);
   }
 }
 
+
 function mapWeatherCodeToIcon(code) {
-  const weatherIcons = {
-    0: 'icons/clear.png',            // Clear sky
-    1: 'icons/mainly_clear.png',     // Mainly clear
-    2: 'icons/partly_cloudy.png',    // Partly cloudy
-    3: 'icons/overcast.png',         // Overcast
-    45: 'icons/fog.png',             // Fog
-    48: 'icons/depositing_rime_fog.png', // Depositing rime fog
-    51: 'icons/light_drizzle.png',   // Light drizzle
-    53: 'icons/moderate_drizzle.png',// Moderate drizzle
-    55: 'icons/dense_drizzle.png',   // Dense drizzle
-    61: 'icons/slight_rain.png',     // Slight rain
-    63: 'icons/moderate_rain.png',   // Moderate rain
-    65: 'icons/heavy_rain.png',      // Heavy rain
-    71: 'icons/slight_snow.png',     // Slight snow
-    73: 'icons/moderate_snow.png',   // Moderate snow
-    75: 'icons/heavy_snow.png',      // Heavy snow
-    95: 'icons/thunderstorm.png',    // Thunderstorm
-    // Add more mappings as needed
+  const iconMap = {
+    0: "01d",  // Clear sky
+    1: "02d",  // Mainly clear
+    2: "03d",  // Partly cloudy
+    3: "04d",  // Overcast
+    45: "50d", // Fog
+    48: "50d", // Depositing rime fog
+    51: "09d", // Light drizzle
+    53: "09d", // Moderate drizzle
+    55: "09d", // Dense drizzle
+    61: "10d", // Slight rain
+    63: "10d", // Moderate rain
+    65: "10d", // Heavy rain
+    71: "13d", // Slight snow
+    73: "13d", // Moderate snow
+    75: "13d", // Heavy snow
+    95: "11d", // Thunderstorm
   };
 
-  return weatherIcons[code] || 'icons/default.png'; // Fallback icon
+  const iconCode = iconMap[code] || "01d"; // Default to clear sky if unknown
+  return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 }
+
 
 window.onload = function() {
   fetchWeatherIcon();
