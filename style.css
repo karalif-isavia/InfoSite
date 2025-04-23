@@ -34,7 +34,7 @@ h1 {
   font-size: 6rem;
   font-weight: bold;
   font-family: 'Courier New', monospace;
-  background: #B0C8FC; /* CHANGED */
+  background: #E0CAA7; /* CHANGED */
   padding: 1.2rem 2.5rem;
   border-radius: 20px;
   margin-bottom: 2.5rem;
@@ -63,7 +63,7 @@ h1 {
   text-align: left;
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  background: #B0C8FC; /* CHANGED */
+  background: #E0CAA7; /* CHANGED */
   color: #000; /* Optional: dark text */
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
@@ -96,7 +96,7 @@ h1 {
 
 #datis {
   font-size: 1rem;
-  background: #B0C8FC; /* CHANGED */
+  background: #E0CAA7; /* CHANGED */
   padding: 1.5rem;
   border-radius: 10px;
   white-space: pre-line;
