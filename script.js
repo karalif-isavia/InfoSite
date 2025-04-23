@@ -67,21 +67,29 @@ async function getWeather() {
     const windDirRWY19 = wind19?.Direction?.Value ?? "N/A";
 
     document.getElementById('weather').innerHTML = `
-      <div class="weather-columns">
-        <div class="weather-left">
-          <strong>Weather Information</strong><br>
-          Temp: ${temp}°C<br>
-          Dew: ${dew}°C<br>
-          RH: ${rh}%
-        </div>
-        <div class="weather-right">
-          <strong>Wind</strong><br>
-          Avg Speed: ${windSpeedAvg} kts<br>
-          Gust: ${gustAvg} kts<br>
-          Direction (RWY 19): ${windDirRWY19}°
+    <div class="weather-columns">
+      <div class="weather-left">
+        <strong>Weather Information</strong><br>
+        Temp: ${temp}°C<br>
+        Dew: ${dew}°C<br>
+        RH: ${rh}%
+      </div>
+      <div class="weather-right">
+        <strong>Wind</strong><br>
+        Avg Speed: ${windSpeedAvg} kts<br>
+        Gust: ${gustAvg} kts<br>
+        Direction (RWY 19): ${windDirRWY19}°
+      </div>
+      <div class="weather-arrow">
+        <strong>Direction</strong>
+        <div class="wind-arrow-container">
+          <div class="wind-arrow" style="transform: rotate(${windDirRWY19}deg);"></div>
+          <div class="wind-arrow-label">N</div>
         </div>
       </div>
-    `;
+    </div>
+  `;
+  
 
   } catch (error) {
     console.error("Weather API error:", error.message || error);

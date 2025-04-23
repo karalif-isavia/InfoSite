@@ -214,6 +214,48 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
+.weather-arrow {
+  flex: 1;
+  min-width: 300px;
+  font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wind-arrow-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-top: 1rem;
+  border: 3px solid #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wind-arrow {
+  width: 6px;
+  height: 35px;
+  background-color: #333;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  transition: transform 0.5s ease;
+}
+
+.wind-arrow-label {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 
 @keyframes pulseAlert {
   0% { box-shadow: 0 0 8px rgba(255, 0, 0, 0.3); }
