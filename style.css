@@ -283,7 +283,37 @@ h1 {
   filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.3));
 }
 
+.weather-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 
+.weather-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.weather-row {
+  display: flex;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin: 0.3rem 0;
+}
+
+.weather-row .label {
+  font-weight: bold;
+  min-width: 220px; /* Adjust for even tab spacing */
+  text-align: right;
+  padding-right: 1rem;
+}
+
+.weather-row .value {
+  text-align: left;
+  min-width: 100px;
+}
 
 
 
