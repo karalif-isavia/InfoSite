@@ -74,19 +74,25 @@ async function getWeather() {
         Dew: ${dew}°C<br>
         RH: ${rh}%
       </div>
+  
+      <div class="weather-picture">
+        <strong>PICTURE</strong>
+        <!-- Add image or other content here -->
+      </div>
+  
       <div class="weather-right">
         <strong>Wind</strong><br>
         Avg Speed: ${windSpeedAvg} kts<br>
         Gust: ${gustAvg} kts<br>
         Direction (RWY 19): ${windDirRWY19}°
-        <div class="arrow-visual arrow-duplicate" style="transform: rotate(${parseFloat(windDirRWY19) - 90}deg);"></div>
       </div>
+  
       <div class="weather-arrow">
-        <strong>Wind Direction</strong>
         <div class="arrow-visual" style="transform: rotate(${parseFloat(windDirRWY19) - 90}deg);"></div>
       </div>
     </div>
   `;
+  
   
 
   } catch (error) {
