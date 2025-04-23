@@ -43,7 +43,6 @@ h1 {
   max-width: 100%;
 }
 
-
 #time-container {
   margin-bottom: 2rem;
 }
@@ -105,7 +104,6 @@ h1 {
   color: #000; /* Optional: dark text */
   max-width: 100%;
 }
-
 
 .datis-banner .status-line {
   font-size: 1.4rem;
@@ -173,7 +171,6 @@ h1 {
   color: #000;
 }
 
-
 .info-banner {
   font-size: 1.6rem;
   background: #E0CAA7; /* CHANGED */
@@ -188,13 +185,11 @@ h1 {
   line-height: 1.6;
 }
 
-
 .info-banner::before {
   content: "ℹ️";
   font-size: 1.8rem;
   margin-right: 0.6rem;
 }
-
 
 .weather-columns {
   display: flex;
@@ -207,15 +202,15 @@ h1 {
 .weather-right {
   flex: 1;
   min-width: 300px;
+  font-size: 1.6rem; /* ADDED to match info-banner */
 }
 
 .weather-left strong,
 .weather-right strong {
-  font-size: 1.4rem;
+  font-size: 1.8rem; /* Optional: make section headers a bit more prominent */
   display: block;
   margin-bottom: 0.5rem;
 }
-
 
 @keyframes pulseAlert {
   0% { box-shadow: 0 0 8px rgba(255, 0, 0, 0.3); }
