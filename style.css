@@ -226,10 +226,10 @@ h1 {
 }
 
 .arrow-visual {
-  width: 80px;
-  height: 40px;
-  margin-top: 1rem;
-  background-color: #B0C8FC; /* Your desired color */
+  width: 120px;        /* increased */
+  height: 60px;        /* increased */
+  margin-top: 1.2rem;
+  background-color: #B0C8FC; /* same site theme color */
   clip-path: polygon(
     0% 50%, 
     60% 50%, 
@@ -242,6 +242,7 @@ h1 {
   transform-origin: 50% 50%;
   transition: transform 0.5s ease;
 }
+
 
 @keyframes pulseAlert {
   0% { box-shadow: 0 0 8px rgba(255, 0, 0, 0.3); }
