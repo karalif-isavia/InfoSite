@@ -76,8 +76,7 @@ async function getWeather() {
       </div>
   
       <div class="weather-picture">
-        <strong>PICTURE</strong>
-        <!-- Add image or other content here -->
+        <img src="https://www.svgrepo.com/show/13648/sun.svg" alt="Sun" class="sun-icon" />
       </div>
   
       <div class="weather-right">
