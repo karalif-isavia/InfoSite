@@ -81,7 +81,7 @@ async function getWeather() {
       <div class="weather-right weather-block">
         <div class="weather-row"><span class="label">Avg Speed:</span><span class="value">${windSpeedAvg} kts</span></div>
         <div class="weather-row"><span class="label">Gust:</span><span class="value">${gustAvg} kts</span></div>
-        <div class="weather-row"><span class="label">Direction (RWY 19):</span><span class="value">${windDirRWY19}°</span></div>
+        <div class="weather-row"><span class="label">Direction (19):</span><span class="value">${windDirRWY19}°</span></div>
       </div>
   
       <div class="weather-arrow">
