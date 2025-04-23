@@ -34,7 +34,7 @@ h1 {
   font-size: 6rem;
   font-weight: bold;
   font-family: 'Courier New', monospace;
-  background: #E0CAA7; /* CHANGED */
+  background: #B0C8FC; /* CHANGED */
   padding: 1.2rem 2.5rem;
   border-radius: 20px;
   margin-bottom: 2.5rem;
@@ -42,6 +42,7 @@ h1 {
   color: #000; /* Optional: dark text for readability */
   max-width: 100%;
 }
+
 
 #time-container {
   margin-bottom: 2rem;
@@ -62,7 +63,7 @@ h1 {
   text-align: left;
   font-size: 1.2rem;
   margin-bottom: 2rem;
-  background: #E0CAA7; /* CHANGED */
+  background: #B0C8FC; /* CHANGED */
   color: #000; /* Optional: dark text */
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
@@ -95,7 +96,7 @@ h1 {
 
 #datis {
   font-size: 1rem;
-  background: #E0CAA7; /* CHANGED */
+  background: #B0C8FC; /* CHANGED */
   padding: 1.5rem;
   border-radius: 10px;
   white-space: pre-line;
@@ -104,6 +105,7 @@ h1 {
   color: #000; /* Optional: dark text */
   max-width: 100%;
 }
+
 
 .datis-banner .status-line {
   font-size: 1.4rem;
@@ -171,13 +173,15 @@ h1 {
   color: #000;
 }
 
+
 .info-banner {
   font-size: 1.6rem;
-  background: #E0CAA7; /* CHANGED */
-  border-left: 6px solid #5e9eff; /* Optional: subtle accent */
+  background: rgba(0, 119, 255, 0.2);
+  border-left: 6px solid #00aaff;
   padding: 1.5rem;
   border-radius: 12px;
-  color: #000; /* Dark text for contrast */
+  backdrop-filter: blur(5px);
+  color: #e0f4ff;
   box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   text-align: left;
   max-width: 100%;
@@ -204,6 +208,7 @@ h1 {
   min-width: 300px;
   font-size: 1.6rem; /* ADDED to match info-banner */
 }
+
 
 .weather-left strong,
 .weather-right strong {
