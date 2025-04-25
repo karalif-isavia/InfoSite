@@ -78,17 +78,20 @@ async function getWeather() {
         <img id="weather-icon" src="" alt="Weather Icon" class="weather-icon" />
       </div>
   
+      <!-- MOVE arrow column here as column 3 -->
+      <div class="weather-arrow">
+        <div class="arrow-visual" style="transform: rotate(${parseFloat(windDirRWY19) - 90}deg);"></div>
+      </div>
+  
+      <!-- MOVE wind info to column 4 -->
       <div class="weather-right weather-block">
         <div class="weather-row"><span class="label">Avg Speed:</span><span class="value">${windSpeedAvg} kts</span></div>
         <div class="weather-row"><span class="label">Gust:</span><span class="value">${gustAvg} kts</span></div>
         <div class="weather-row"><span class="label">Direction (19):</span><span class="value">${windDirRWY19}°</span></div>
       </div>
-  
-      <div class="weather-arrow">
-        <div class="arrow-visual" style="transform: rotate(${parseFloat(windDirRWY19) - 90}deg);"></div>
-      </div>
     </div>
   `;
+  
   
 
   } catch (error) {
@@ -108,38 +111,40 @@ async function fetchWeatherIcon() {
     const data = await response.json();
     const weatherCode = data.current.weathercode;
 
+    // Use local image instead of OpenWeather's CDN
     const iconUrl = mapWeatherCodeToIcon(weatherCode);
     document.getElementById('weather-icon').src = iconUrl;
   } catch (error) {
     console.error("Error fetching weather icon:", error);
+    document.getElementById('weather-icon').alt = "Weather icon unavailable";
   }
 }
 
 
+
 function mapWeatherCodeToIcon(code) {
   const iconMap = {
-    0: "01d",  // Clear sky
-    1: "02d",  // Mainly clear
-    2: "03d",  // Partly cloudy
-    3: "04d",  // Overcast
-    45: "50d", // Fog
-    48: "50d", // Depositing rime fog
-    51: "09d", // Light drizzle
-    53: "09d", // Moderate drizzle
-    55: "09d", // Dense drizzle
-    61: "10d", // Slight rain
-    63: "10d", // Moderate rain
-    65: "10d", // Heavy rain
-    71: "13d", // Slight snow
-    73: "13d", // Moderate snow
-    75: "13d", // Heavy snow
-    95: "11d", // Thunderstorm
+    0: "01d",
+    1: "02d",
+    2: "03d",
+    3: "04d",
+    45: "50d",
+    48: "50d",
+    51: "09d",
+    53: "09d",
+    55: "09d",
+    61: "10d",
+    63: "10d",
+    65: "10d",
+    71: "13d",
+    73: "13d",
+    75: "13d",
+    95: "11d"
   };
 
-  const iconCode = iconMap[code] || "01d"; // Default to clear sky if unknown
-  return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+  const iconCode = iconMap[code] || "01d"; // fallback to clear sky
+  return `./images/${iconCode}.png`;
 }
-
 
 window.onload = function() {
   fetchWeatherIcon();
