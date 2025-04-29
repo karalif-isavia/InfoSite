@@ -78,7 +78,7 @@ async function getWeather() {
     </div>
   `;
   
-  
+  await fetchWeatherIcon();
 
   } catch (error) {
     console.error("Weather API error:", error.message || error);
@@ -148,11 +148,6 @@ function mapWeatherCodeToIcon(code) {
 }
 
 
-window.onload = function() {
-  fetchWeatherIcon();
-};
-
-
 // ATIS
 async function getDatis() {
   try {
@@ -212,5 +207,7 @@ async function getDatis() {
 }
 
 
-getWeather();
-getDatis();
+window.onload = function() {
+  getWeather();
+  getDatis();
+};
