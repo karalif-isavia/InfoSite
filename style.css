@@ -215,16 +215,12 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-.weather-arrow {
-  flex: 1;
-  min-width: 300px;
-  font-size: 1.6rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+#wind-arrow {
+  font-size: 160px; /* same size you had before */
+  color: #B0C8FC; /* or whatever color you want */
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
 
 .arrow-visual {
   width: 160px; /* bigger */

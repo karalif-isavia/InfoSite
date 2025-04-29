@@ -64,12 +64,10 @@ async function getWeather() {
         <i id="weather-icon" class="wi wi-day-sunny weather-icon"></i>
       </div>
 
-      <!-- MOVE arrow column here as column 3 -->
       <div class="weather-arrow">
-        <div class="arrow-visual" style="transform: rotate(${parseFloat(windDirRWY19) - 90}deg);"></div>
+        <i id="wind-arrow" class="wi wi-wind towards-0-deg"></i>
       </div>
   
-      <!-- MOVE wind info to column 4 -->
       <div class="weather-right weather-block">
         <div class="weather-row"><span class="label">Avg Speed:</span><span class="value">${windSpeedAvg} kts</span></div>
         <div class="weather-row"><span class="label">Gust:</span><span class="value">${gustAvg} kts</span></div>
@@ -78,6 +76,12 @@ async function getWeather() {
     </div>
   `;
   
+  const windDir = parseFloat(windDirRWY19) || 0;
+  const windArrowEl = document.getElementById('wind-arrow');
+  windArrowEl.className = 'wi wi-wind'; 
+  const roundedDir = Math.round(windDir / 10) * 10;
+  windArrowEl.classList.add(`towards-${roundedDir}-deg`);
+
   await fetchWeatherIcon();
 
   } catch (error) {
