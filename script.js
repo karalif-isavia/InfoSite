@@ -63,9 +63,9 @@ async function getWeather() {
       <div class="weather-picture">
         <i id="weather-icon" class="wi wi-day-sunny weather-icon"></i>
       </div>
-
+  
       <div class="weather-arrow">
-        <i id="wind-arrow" class="wi wi-wind towards-0-deg"></i>
+        <i id="wind-arrow" class="wi wi-direction-up"></i> <!-- ✅ CHANGE wi-wind -> wi-direction-up -->
       </div>
   
       <div class="weather-right weather-block">
@@ -75,6 +75,7 @@ async function getWeather() {
       </div>
     </div>
   `;
+  
   
   const windDir = parseFloat(windDirRWY19) || 0;
   const windArrowEl = document.getElementById('wind-arrow');
