@@ -315,7 +315,10 @@ h1 {
   min-width: 100px;
 }
 
-
+.weather-icon {
+  font-size: 200px; /* Big like your old image */
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
 
 @keyframes pulseAlert {
   0% { box-shadow: 0 0 8px rgba(255, 0, 0, 0.3); }

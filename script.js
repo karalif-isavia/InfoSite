@@ -47,20 +47,6 @@ async function getWeather() {
     const wind19 = getWind("Wind19");
     const wind28 = getWind("Wind28");
 
-    // Runway temperatures (commented out)
-    // const rwyTemps = data.Sensors.TempRwy.Parameters.reduce((acc, param) => {
-    //   acc[param.Name] = param.Value;
-    //   return acc;
-    // }, {});
-
-    // const formatRWY = (name, wind, tempKey) => {
-    //   const speed = wind?.Speed?.Value ?? "N/A";
-    //   const dir = wind?.Direction?.Value ?? "N/A";
-    //   const gust = wind?.Speed10MinutesMax?.Value ?? "N/A";
-    //   const rwyTemp = rwyTemps[tempKey] ?? "N/A";
-    //   return `RWY ${name}: ${speed} kts from direction ${dir}°, RW Temp ${rwyTemp}°C and gusts at ${gust} kts`;
-    // };
-
     const avg = arr => arr.reduce((sum, val) => sum + parseFloat(val), 0) / arr.length;
     const windSpeedAvg = avg(windSensors.map(w => w?.Speed?.Value ?? 0)).toFixed(1);
     const gustAvg = avg(windSensors.map(w => w?.Speed10MinutesMax?.Value ?? 0)).toFixed(1);
@@ -75,9 +61,9 @@ async function getWeather() {
       </div>
   
       <div class="weather-picture">
-        <img id="weather-icon" src="" alt="Weather Icon" class="weather-icon" />
+        <i id="weather-icon" class="wi wi-day-sunny weather-icon"></i>
       </div>
-  
+
       <!-- MOVE arrow column here as column 3 -->
       <div class="weather-arrow">
         <div class="arrow-visual" style="transform: rotate(${parseFloat(windDirRWY19) - 90}deg);"></div>
@@ -100,7 +86,6 @@ async function getWeather() {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
-
 async function fetchWeatherIcon() {
   const latitude = 63.985; // Keflavík Airport
   const longitude = -22.605;
@@ -111,40 +96,46 @@ async function fetchWeatherIcon() {
     const data = await response.json();
     const weatherCode = data.current.weathercode;
 
-    // Use local image instead of OpenWeather's CDN
-    const iconUrl = mapWeatherCodeToIcon(weatherCode);
-    document.getElementById('weather-icon').src = iconUrl;
+    const iconClass = mapWeatherCodeToIcon(weatherCode);
+    const weatherIconEl = document.getElementById('weather-icon');
+
+    // Remove previous icon classes (optional, for safety)
+    weatherIconEl.className = 'wi weather-icon';
+
+    // Add the new specific weather icon class
+    weatherIconEl.classList.add(iconClass);
   } catch (error) {
     console.error("Error fetching weather icon:", error);
-    document.getElementById('weather-icon').alt = "Weather icon unavailable";
+    document.getElementById('weather-icon').className = "wi wi-na"; // fallback icon
   }
 }
 
 
 
+
 function mapWeatherCodeToIcon(code) {
   const iconMap = {
-    0: "01d",
-    1: "02d",
-    2: "03d",
-    3: "04d",
-    45: "50d",
-    48: "50d",
-    51: "09d",
-    53: "09d",
-    55: "09d",
-    61: "10d",
-    63: "10d",
-    65: "10d",
-    71: "13d",
-    73: "13d",
-    75: "13d",
-    95: "11d"
+    0: "wi-day-sunny",        // Clear sky
+    1: "wi-day-sunny-overcast", // Mostly clear
+    2: "wi-day-cloudy",       // Partly cloudy
+    3: "wi-cloudy",           // Overcast
+    45: "wi-fog",             // Fog
+    48: "wi-fog",             // Depositing rime fog
+    51: "wi-sprinkle",        // Light drizzle
+    53: "wi-sprinkle",        // Moderate drizzle
+    55: "wi-sprinkle",        // Dense drizzle
+    61: "wi-rain",            // Slight rain
+    63: "wi-rain",            // Moderate rain
+    65: "wi-rain",            // Heavy rain
+    71: "wi-snow",            // Slight snow fall
+    73: "wi-snow",            // Moderate snow fall
+    75: "wi-snow",            // Heavy snow fall
+    95: "wi-thunderstorm"     // Thunderstorm
   };
 
-  const iconCode = iconMap[code] || "01d"; // fallback to clear sky
-  return `./images/${iconCode}.png`;
+  return iconMap[code] || "wi-na"; // fallback to 'not available' icon
 }
+
 
 window.onload = function() {
   fetchWeatherIcon();
@@ -192,7 +183,7 @@ async function getDatis() {
     // Info text about LVP procedures
     const procedureInfo = `
       <div class="procedure-info">
-        <strong>6.12 Lágskyggnis aðgerðir:</strong> Sérstakt verklag er virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja og fjöldi einstaklinga að vinnu á flugvellinum verulega takmörkuð. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan lágskyggni aðgerðir eru virkar.
+        <strong>6.12 Lágskyggnis aðgerðir:</strong> Sérstakt verklag er virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja og fjöldi einstaklinga að vinnu á flugvellinum verulega takmörkuð. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan aðgerðir eru virkar.
     `;
   
     // Update content
