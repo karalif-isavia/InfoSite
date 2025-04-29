@@ -186,6 +186,16 @@ h1 {
   min-width: 300px;
   font-size: 1.6rem; /* ADDED to match info-banner */
 }
+.weather-arrow {
+  flex: 1;
+  min-width: 300px;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 
 .weather-left strong,
 .weather-right strong {
@@ -200,6 +210,7 @@ h1 {
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.5s ease;
 }
+
 
 .weather-picture {
   flex: 1;
