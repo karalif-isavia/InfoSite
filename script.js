@@ -111,30 +111,39 @@ async function fetchWeatherIcon() {
 }
 
 
-
-
 function mapWeatherCodeToIcon(code) {
   const iconMap = {
-    0: "wi-day-sunny",        // Clear sky
-    1: "wi-day-sunny-overcast", // Mostly clear
-    2: "wi-day-cloudy",       // Partly cloudy
-    3: "wi-cloudy",           // Overcast
-    45: "wi-fog",             // Fog
-    48: "wi-fog",             // Depositing rime fog
-    51: "wi-sprinkle",        // Light drizzle
-    53: "wi-sprinkle",        // Moderate drizzle
-    55: "wi-sprinkle",        // Dense drizzle
-    61: "wi-rain",            // Slight rain
-    63: "wi-rain",            // Moderate rain
-    65: "wi-rain",            // Heavy rain
-    71: "wi-snow",            // Slight snow fall
-    73: "wi-snow",            // Moderate snow fall
-    75: "wi-snow",            // Heavy snow fall
-    95: "wi-thunderstorm"     // Thunderstorm
+    0: "wi-day-sunny",             // Clear sky
+    1: "wi-day-sunny-overcast",     // Mainly clear (few clouds)
+    2: "wi-day-cloudy",             // Partly cloudy
+    3: "wi-cloudy",                 // Overcast
+    45: "wi-fog",                   // Fog
+    48: "wi-fog",                   // Depositing rime fog
+    51: "wi-sprinkle",              // Light drizzle
+    53: "wi-sprinkle",              // Moderate drizzle
+    55: "wi-showers",               // Dense drizzle
+    61: "wi-rain",                  // Slight rain
+    63: "wi-rain",                  // Moderate rain
+    65: "wi-rain-wind",             // Heavy rain
+    66: "wi-rain-mix",              // Freezing rain light
+    67: "wi-rain-mix",              // Freezing rain heavy
+    71: "wi-snow",                  // Slight snow fall
+    73: "wi-snow",                  // Moderate snow fall
+    75: "wi-snow-wind",             // Heavy snow fall
+    77: "wi-snowflake-cold",        // Snow grains
+    80: "wi-showers",               // Rain showers: Slight
+    81: "wi-showers",               // Rain showers: Moderate
+    82: "wi-showers",               // Rain showers: Violent
+    85: "wi-snow",                  // Snow showers: Slight
+    86: "wi-snow",                  // Snow showers: Heavy
+    95: "wi-thunderstorm",          // Thunderstorm
+    96: "wi-thunderstorm",          // Thunderstorm with slight hail
+    99: "wi-thunderstorm"           // Thunderstorm with heavy hail
   };
 
-  return iconMap[code] || "wi-na"; // fallback to 'not available' icon
+  return iconMap[code] || "wi-na"; // fallback: wi-na ("not available")
 }
+
 
 
 window.onload = function() {
