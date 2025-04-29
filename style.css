@@ -199,18 +199,17 @@ h1 {
 
 .weather-left strong,
 .weather-right strong {
-  font-size: 1.8rem; /* Optional: make section headers a bit more prominent */
+  font-size: 1.8rem; 
   display: block;
   margin-bottom: 0.5rem;
 }
 
 #wind-arrow {
-  font-size: 160px;
-  color: #B0C8FC;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.5s ease;
+  font-size: 200px; 
+  color: white; 
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.3); 
+  transition: transform 0.5s ease; 
 }
-
 
 .weather-picture {
   flex: 1;
