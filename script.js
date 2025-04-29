@@ -79,7 +79,7 @@ async function getWeather() {
   
   const windDir = parseFloat(windDirRWY19) || 0;
   const windArrowEl = document.getElementById('wind-arrow');
-  windArrowEl.className = 'wi wi-wind';
+  windArrowEl.className = 'wi wi-direction-up'; 
   const roundedDir = Math.round(windDir / 10) * 10;
   const finalDir = (roundedDir % 360);
   windArrowEl.classList.add(`towards-${finalDir}-deg`);
