@@ -86,8 +86,10 @@ async function getWeather() {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
+
+
 async function fetchWeatherIcon() {
-  const latitude = 63.985; // Keflavík Airport
+  const latitude = 63.985; // Keflavík
   const longitude = -22.605;
   const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=weathercode&timezone=auto`;
 
@@ -99,51 +101,51 @@ async function fetchWeatherIcon() {
     const iconClass = mapWeatherCodeToIcon(weatherCode);
     const weatherIconEl = document.getElementById('weather-icon');
 
-    // Remove previous icon classes (optional, for safety)
-    weatherIconEl.className = 'wi weather-icon';
+    // Clear all previous classes (important!)
+    weatherIconEl.className = 'wi weather-icon'; 
 
-    // Add the new specific weather icon class
+    // Then add the new weather icon class
     weatherIconEl.classList.add(iconClass);
   } catch (error) {
     console.error("Error fetching weather icon:", error);
-    document.getElementById('weather-icon').className = "wi wi-na"; // fallback icon
+    document.getElementById('weather-icon').className = "wi wi-na"; // fallback
   }
 }
+
 
 
 function mapWeatherCodeToIcon(code) {
   const iconMap = {
     0: "wi-day-sunny",             // Clear sky
-    1: "wi-day-sunny-overcast",     // Mainly clear (few clouds)
+    1: "wi-day-sunny-overcast",     // Mainly clear
     2: "wi-day-cloudy",             // Partly cloudy
     3: "wi-cloudy",                 // Overcast
     45: "wi-fog",                   // Fog
-    48: "wi-fog",                   // Depositing rime fog
+    48: "wi-fog",                   // Fog with frost
     51: "wi-sprinkle",              // Light drizzle
     53: "wi-sprinkle",              // Moderate drizzle
     55: "wi-showers",               // Dense drizzle
-    61: "wi-rain",                  // Slight rain
+    61: "wi-rain",                  // Light rain
     63: "wi-rain",                  // Moderate rain
     65: "wi-rain-wind",             // Heavy rain
-    66: "wi-rain-mix",              // Freezing rain light
-    67: "wi-rain-mix",              // Freezing rain heavy
-    71: "wi-snow",                  // Slight snow fall
-    73: "wi-snow",                  // Moderate snow fall
-    75: "wi-snow-wind",             // Heavy snow fall
+    66: "wi-rain-mix",              // Freezing rain
+    67: "wi-rain-mix",              // Heavy freezing rain
+    71: "wi-snow",                  // Light snow
+    73: "wi-snow",                  // Moderate snow
+    75: "wi-snow-wind",             // Heavy snow
     77: "wi-snowflake-cold",        // Snow grains
-    80: "wi-showers",               // Rain showers: Slight
-    81: "wi-showers",               // Rain showers: Moderate
-    82: "wi-showers",               // Rain showers: Violent
-    85: "wi-snow",                  // Snow showers: Slight
-    86: "wi-snow",                  // Snow showers: Heavy
+    80: "wi-showers",               // Rain showers slight
+    81: "wi-showers",               // Rain showers moderate
+    82: "wi-showers",               // Rain showers violent
+    85: "wi-snow",                  // Snow showers slight
+    86: "wi-snow",                  // Snow showers heavy
     95: "wi-thunderstorm",          // Thunderstorm
-    96: "wi-thunderstorm",          // Thunderstorm with slight hail
-    99: "wi-thunderstorm"           // Thunderstorm with heavy hail
+    96: "wi-thunderstorm",          // Thunderstorm slight hail
+    99: "wi-thunderstorm"           // Thunderstorm heavy hail
   };
 
-  return iconMap[code] || "wi-na"; // fallback: wi-na ("not available")
+  return iconMap[code] || "wi-na"; // fallback
 }
-
 
 
 window.onload = function() {
