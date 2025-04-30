@@ -141,6 +141,36 @@ function mapWeatherCodeToIcon(code) {
   return iconMap[code] || "wi-na";
 }
 
+async function getIwsWind() {
+  try {
+    const response = await fetch('https://iws.isavia.is/weather/BIKF');
+    const json = await response.json();
+
+    const data = json.data;
+    const rwy19 = data?.rwy19;
+
+    if (!rwy19) {
+      throw new Error("No RWY19 data in IWS response.");
+    }
+
+    const speed = rwy19.windSpeed?.value?.toFixed(1) ?? "N/A";
+    const direction = rwy19.windDirection?.value ?? "N/A";
+    const gust = rwy19.windSpeed10MinutesMax?.value?.toFixed(1) ?? "N/A";
+
+    const iwsEl = document.getElementById('iws-weather');
+    iwsEl.innerHTML = `
+      <h3>IWS Wind Data (RWY19)</h3>
+      <div class="weather-row"><span class="label">Speed:</span><span class="value">${speed} kts</span></div>
+      <div class="weather-row"><span class="label">Direction:</span><span class="value">${direction}°</span></div>
+      <div class="weather-row"><span class="label">Gust (10 min max):</span><span class="value">${gust} kts</span></div>
+    `;
+  } catch (error) {
+    console.error("IWS Weather error:", error.message || error);
+    document.getElementById('iws-weather').innerText = "Failed to load IWS weather.";
+  }
+}
+
+
 
 // ATIS
 async function getDatis() {
@@ -187,4 +217,5 @@ async function getDatis() {
 window.onload = function() {
   getWeather();
   getDatis();
+  getIwsWind();
 };
