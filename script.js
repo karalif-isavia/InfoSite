@@ -35,6 +35,18 @@ async function getWeather() {
     const dew = tempParams.find(p => p.Name === "Dew.")?.Value ?? "N/A";
     const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
 
+    const windSensors = data.Sensors.Wind;
+    const getWind = id => windSensors.find(w => w.Id === id) || {};
+    const wind01 = getWind("Wind01");
+    const wind10 = getWind("Wind10");
+    const wind19 = getWind("Wind19");
+    const wind28 = getWind("Wind28");
+
+    const avg = arr => arr.reduce((sum, val) => sum + parseFloat(val), 0) / arr.length;
+    const windSpeedAvg = avg(windSensors.map(w => w?.Speed?.Value ?? 0)).toFixed(1);
+    const gustAvg = avg(windSensors.map(w => w?.Speed10MinutesMax?.Value ?? 0)).toFixed(1);
+    const windDirRWY19 = wind19?.Direction?.Value ?? "N/A";
+
     document.getElementById('weather').innerHTML = `
     <div class="weather-columns">
       <div class="weather-left weather-block">
@@ -52,9 +64,18 @@ async function getWeather() {
       </div>
   
       <div class="weather-right weather-block">
+        <div class="weather-row"><span class="label">Avg Speed:</span><span class="value">${windSpeedAvg} kts</span></div>
+        <div class="weather-row"><span class="label">Gust:</span><span class="value">${gustAvg} kts</span></div>
+        <div class="weather-row"><span class="label">Direction (19):</span><span class="value">${windDirRWY19}°</span></div>
       </div>
     </div>
   `;
+  
+  const windDir = parseFloat(windDirRWY19) || 0;
+  const windArrowEl = document.getElementById('wind-arrow');
+  windArrowEl.className = 'wi wi-direction-up';
+  windArrowEl.style.transform = `rotate(${windDir}deg)`;
+  
   
   await fetchWeatherIcon();
 
@@ -125,46 +146,29 @@ async function getIwsWind() {
     const response = await fetch('https://iws.isavia.is/weather/BIKF');
     const json = await response.json();
 
-    const apron = json.data?.apron;
+    const data = json.data;
+    const rwy19 = data?.rwy19;
 
-    if (!apron) {
-      throw new Error("No apron data in IWS response.");
+    if (!rwy19) {
+      throw new Error("No RWY19 data in IWS response.");
     }
 
-    const speed = apron.windSpeed?.value?.toFixed(1) ?? "N/A";
-    const gust = apron.windSpeed10MinutesMax?.value?.toFixed(1) ?? "N/A";
-    const direction = apron.windDirection?.value?.toFixed(0) ?? "N/A";
+    const speed = rwy19.windSpeed?.value?.toFixed(1) ?? "N/A";
+    const direction = rwy19.windDirection?.value ?? "N/A";
+    const gust = rwy19.windSpeed10MinutesMax?.value?.toFixed(1) ?? "N/A";
 
-    // Update the weather display block with apron wind data
     const iwsEl = document.getElementById('iws-weather');
     iwsEl.innerHTML = `
-      <h3>Wind Data (Apron)</h3>
+      <h3>IWS Wind Data (RWY19)</h3>
       <div class="weather-row"><span class="label">Speed:</span><span class="value">${speed} kts</span></div>
       <div class="weather-row"><span class="label">Direction:</span><span class="value">${direction}°</span></div>
       <div class="weather-row"><span class="label">Gust (10 min max):</span><span class="value">${gust} kts</span></div>
     `;
-
-    // Update the main weather panel with wind info and rotate the arrow
-    const weatherRight = document.querySelector('.weather-right');
-    if (weatherRight) {
-      weatherRight.innerHTML = `
-        <div class="weather-row"><span class="label">Avg Speed:</span><span class="value">${speed} kts</span></div>
-        <div class="weather-row"><span class="label">Gust:</span><span class="value">${gust} kts</span></div>
-        <div class="weather-row"><span class="label">Direction:</span><span class="value">${direction}°</span></div>
-      `;
-    }
-
-    // Rotate the wind arrow based on apron wind direction
-    const windArrowEl = document.getElementById('wind-arrow');
-    windArrowEl.className = 'wi wi-direction-up';
-    windArrowEl.style.transform = `rotate(${direction}deg)`;
-
   } catch (error) {
     console.error("IWS Weather error:", error.message || error);
     document.getElementById('iws-weather').innerText = "Failed to load IWS weather.";
   }
 }
-
 
 
 
