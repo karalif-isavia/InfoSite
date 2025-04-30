@@ -32,8 +32,8 @@ async function getWeather() {
 
     const tempParams = data.Sensors.Temperature.Parameters;
     const temp = tempParams.find(p => p.Name === "Temp")?.Value ?? "N/A";
-    const dew = tempParams.find(p => p.Name === "Dew Pt.")?.Value ?? "N/A";
-    const rh = tempParams.find(p => p.Name === "RH (%)")?.Value ?? "N/A";
+    const dew = tempParams.find(p => p.Name === "Dew.")?.Value ?? "N/A";
+    const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
 
     const windSensors = data.Sensors.Wind;
     const getWind = id => windSensors.find(w => w.Id === id) || {};
