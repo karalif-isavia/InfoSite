@@ -282,6 +282,31 @@ h1 {
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
 }
 
+.lowvis-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: red;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 1rem 0;
+  z-index: 9999;
+  transform: translateY(-100%);
+  transition: transform 0.5s ease;
+}
+
+.lowvis-popup.show {
+  transform: translateY(0);
+}
+
+.hidden {
+  display: none;
+}
+
+
 @keyframes pulseAlert {
   0% { box-shadow: 0 0 8px rgba(255, 0, 0, 0.3); }
   50% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.6); }
