@@ -217,26 +217,21 @@ async function getDatis() {
 async function getViewMondoData() {
   try {
     const response = await fetch('https://site-proxy-m4fs.onrender.com/viewmondo');
-    const stations = await response.json();
+    const data = await response.json();
 
-    const firstStation = stations[0];
+    // 🔍 For debugging: log the full response
+    console.log("ViewMondo data:", data);
+
+    // Example: extract something simple to display — first station and its sensors
+    const firstStation = data[0];
     const stationName = firstStation?.StationName || "Unknown";
-    const sensors = firstStation?.SensorChannelInfo || [];
-
-    // Look inside Parameters if it exists
-    const airTempSensor = sensors.find(s =>
-      s?.Parameters?.some(p => p?.ParamName?.toLowerCase().includes('temperature'))
-    );
-
-    const airTemp = airTempSensor?.Parameters?.find(p =>
-      p?.ParamName?.toLowerCase().includes('temperature')
-    )?.Value ?? "N/A";
+    const firstSensor = firstStation?.SensorChannelInfo?.[0]?.SensorName || "No sensor";
 
     const viewMondoEl = document.getElementById('viewmondo');
     viewMondoEl.innerHTML = `
       <h3>ViewMondo</h3>
       <div><strong>Station:</strong> ${stationName}</div>
-      <div><strong>Air Temperature:</strong> ${airTemp} °C</div>
+      <div><strong>First Sensor:</strong> ${firstSensor}</div>
     `;
   } catch (error) {
     console.error("ViewMondo error:", error.message || error);
