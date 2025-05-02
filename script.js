@@ -32,7 +32,7 @@ async function getWeather() {
 
     const tempParams = data.Sensors.Temperature.Parameters;
     const temp = tempParams.find(p => p.Name === "Temp")?.Value ?? "N/A";
-    const dew = tempParams.find(p => p.Name === "Dew.")?.Value ?? "N/A";
+    const dew = tempParams.find(p => p.Name === "Dew")?.Value ?? "N/A";
     const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
 
     const windSensors = data.Sensors.Wind;
@@ -214,8 +214,36 @@ async function getDatis() {
   }
 }
 
+async function getViewMondoData() {
+  try {
+    const response = await fetch('https://site-proxy-m4fs.onrender.com/viewmondo');
+    const data = await response.json();
+
+    // 🔍 For debugging: log the full response
+    console.log("ViewMondo data:", data);
+
+    // Example: extract something simple to display — first station and its sensors
+    const firstStation = data[0];
+    const stationName = firstStation?.StationName || "Unknown";
+    const firstSensor = firstStation?.SensorChannelInfo?.[0]?.SensorName || "No sensor";
+
+    const viewMondoEl = document.getElementById('viewmondo');
+    viewMondoEl.innerHTML = `
+      <h3>ViewMondo</h3>
+      <div><strong>Station:</strong> ${stationName}</div>
+      <div><strong>First Sensor:</strong> ${firstSensor}</div>
+    `;
+  } catch (error) {
+    console.error("ViewMondo error:", error.message || error);
+    const viewMondoEl = document.getElementById('viewmondo');
+    viewMondoEl.innerText = "Failed to load ViewMondo data.";
+  }
+}
+
+
 window.onload = function() {
   getWeather();
   getDatis();
   getIwsWind();
+  getViewMondoData();
 };
