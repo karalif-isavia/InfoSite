@@ -225,7 +225,7 @@ async function getViewMondoData() {
 
     // Try to find sensor with name including "Air Temperature"
     const airTempSensor = sensors.find(s => 
-      s?.SensorName?.toLowerCase().includes('air temperature') && s?.LastVal !== undefined
+      s?.SensorName?.toLowerCase().includes('temp') && s?.LastVal !== undefined
     );
 
     const airTemp = airTempSensor?.LastVal ?? "N/A";
