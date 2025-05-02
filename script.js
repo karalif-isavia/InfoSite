@@ -219,16 +219,18 @@ async function getViewMondoData() {
     const response = await fetch('https://site-proxy-m4fs.onrender.com/viewmondo');
     const stations = await response.json();
 
-    const firstStation = stations[0]; // Just using the first station for now
+    const firstStation = stations[0];
     const stationName = firstStation?.StationName || "Unknown";
     const sensors = firstStation?.SensorChannelInfo || [];
 
-    // Try to find sensor with name including "Air Temperature"
-    const airTempSensor = sensors.find(s => 
-      s?.SensorName?.toLowerCase().includes('temp') && s?.LastVal !== undefined
+    // Look inside Parameters if it exists
+    const airTempSensor = sensors.find(s =>
+      s?.Parameters?.some(p => p?.ParamName?.toLowerCase().includes('temperature'))
     );
 
-    const airTemp = airTempSensor?.LastVal ?? "N/A";
+    const airTemp = airTempSensor?.Parameters?.find(p =>
+      p?.ParamName?.toLowerCase().includes('temperature')
+    )?.Value ?? "N/A";
 
     const viewMondoEl = document.getElementById('viewmondo');
     viewMondoEl.innerHTML = `
@@ -242,6 +244,7 @@ async function getViewMondoData() {
     viewMondoEl.innerText = "Failed to load ViewMondo data.";
   }
 }
+
 
 
 window.onload = function() {
