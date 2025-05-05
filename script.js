@@ -30,17 +30,11 @@ async function getWeather() {
     const json = await response.json();
     const data = json.data;
 
-    //const tempParams = data.Sensors.Temperature.Parameters;
-    //const temp = tempParams.find(p => p.Name === "Temp")?.Value ?? "N/A";
-    //const dew = tempParams.find(p => p.Name === "Dew")?.Value ?? "N/A";
-    //const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
-
     const windSensors = data.Sensors.Wind;
     const avg = arr => arr.reduce((sum, val) => sum + parseFloat(val), 0) / arr.length;
     const windSpeedAvg = avg(windSensors.map(w => w?.Speed?.Value ?? 0)).toFixed(1);
     const gustAvg = avg(windSensors.map(w => w?.Speed10MinutesMax?.Value ?? 0)).toFixed(1);
 
-    // Initial HTML including 4th column placeholder
     document.getElementById('weather').innerHTML = `
       <div class="weather-columns">
         <div class="weather-left weather-block" id="viewmondo-left">
@@ -157,8 +151,6 @@ function mapWeatherCodeToIcon(code) {
   return iconMap[code] || "wi-na";
 }
 
-
-
 // ATIS
 async function getDatis() {
   try {
@@ -176,23 +168,25 @@ async function getDatis() {
     const rawTimestamp = lines[atisIndex + 1]?.match(/(\d{4})Z/);
     const timeZulu = rawTimestamp ? `${rawTimestamp[1].slice(0, 2)}:${rawTimestamp[1].slice(2)}` : "Time N/A";
 
-    const statusLine = hasLowVis
-    ? `<span class="status-line">
+    if (hasLowVis) {
+      const statusLine = `
+        <span class="status-line">
           <strong> 🚨 Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter}, gefið út síðast kl. ${timeZulu} 🚨</strong>
-      </span>`
-    : `<span class="status-line">
-          <strong> Lágskyggnisástand ekki til staðar samkvæmt ATIS ${atisLetter}, gefið út síðast kl. ${timeZulu}</strong>
-      </span>`;
-
-    const procedureInfo = `
-      <div class="procedure-info">
-        <strong>6.12 Lágskyggnis aðgerðir:</strong> Sérstakt verklag er virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja og fjöldi einstaklinga að vinnu á flugvellinum verulega takmörkuð. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan aðgerðir eru virkar.
-    `;
-  
-    const datisEl = document.getElementById('datis');
-    datisEl.innerHTML = statusLine + procedureInfo;
-
-    datisEl.className = hasLowVis ? 'datis-banner lvo-active' : 'datis-banner lvo-inactive';
+        </span>`;
+    
+      const procedureInfo = `
+        <div class="procedure-info">
+          <strong>6.12 Lágskyggnis aðgerðir:</strong> Sérstakt verklag er virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja og fjöldi einstaklinga að vinnu á flugvellinum verulega takmörkuð. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan aðgerðir eru virkar.
+        </div>`;
+    
+      const datisEl = document.getElementById('datis');
+      datisEl.innerHTML = statusLine + procedureInfo;
+      datisEl.className = 'datis-banner lvo-active';
+    } else {
+      document.getElementById('datis').innerHTML = '';
+      document.getElementById('datis').className = ''; // Clear classes
+    }
+    
 
   } catch (error) {
     console.error("DATIS API error:", error.message || error);
