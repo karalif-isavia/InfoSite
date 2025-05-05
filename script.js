@@ -35,49 +35,21 @@ async function getWeather() {
     const windSpeedAvg = avg(windSensors.map(w => w?.Speed?.Value ?? 0)).toFixed(1);
     const gustAvg = avg(windSensors.map(w => w?.Speed10MinutesMax?.Value ?? 0)).toFixed(1);
 
-    /*document.getElementById('weather').innerHTML = `
-      <div class="weather-columns">
-        <div class="weather-left weather-block" id="viewmondo-left">
-          <div class="weather-row"><span class="label">Air Temp:</span><span class="value">--</span></div>
-          <div class="weather-row"><span class="label">Dew Point:</span><span class="value">--</span></div>
-          <div class="weather-row"><span class="label">RH:</span><span class="value">--</span></div>
-        </div>
-
-        <div class="weather-picture">
-          <i id="weather-icon" class="weather-icon"></i>
-        </div>
-
-        <div class="weather-arrow">
-          <i id="wind-arrow" class="wi wi-direction-up"></i>
-        </div>
-
-        <div class="weather-right weather-block" id="iws-data">
-          <div class="weather-row">Loading IWS wind data...</div>
-        </div>
-      </div>
-    `;
-*/
-
     document.getElementById('weather').innerHTML = `
       <div class="weather-columns">
-        <div class="weather-left weather-block" id="viewmondo-left">
-
-          <a href="https://metar-taf.com/BIKF" id="metartaf-tvu95fAt" style="font-size:18px; font-weight:500; color:#000; width:300px; height:435px; display:block">METAR for BIKF</a>
-            <script async defer crossorigin="anonymous" src="https://metar-taf.com/embed-js/BIKF?qnh=hPa&rh=rh&target=tvu95fAt"></script>
-          
+        <div class="weather-left weather-block" style="min-width: 350px;">
+          <a href="https://metar-taf.com/BIKF" id="metartaf-XZ3PQ1eU" style="font-size:18px; font-weight:500; color:#000; width:350px; height:278px; display:block">METAR Keflavik International Airport</a>
         </div>
-
         <div class="weather-arrow">
           <i id="wind-arrow" class="wi wi-direction-up"></i>
         </div>
-
         <div class="weather-right weather-block" id="iws-data">
           <div class="weather-row">Loading IWS wind data...</div>
         </div>
       </div>
     `;
-    
-    await fetchWeatherIcon();
+  
+    //await fetchWeatherIcon();
 
     // Fetch IWS and update 4th column + arrow
     try {
@@ -115,8 +87,10 @@ async function getWeather() {
   }
 }
 
-
 async function fetchWeatherIcon() {
+  const weatherIconEl = document.getElementById('weather-icon');
+  if (!weatherIconEl) return; // Exit early if icon is not present
+
   const latitude = 63.985; // Keflavík
   const longitude = -22.605;
   const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=weathercode&timezone=auto`;
@@ -127,18 +101,14 @@ async function fetchWeatherIcon() {
     const weatherCode = data.current.weathercode;
 
     const iconClass = mapWeatherCodeToIcon(weatherCode);
-    const weatherIconEl = document.getElementById('weather-icon');
-    if (weatherIconEl) {
-      weatherIconEl.className = 'wi weather-icon'; 
-      weatherIconEl.classList.add(iconClass);
-    } else {
-      console.error("Element with ID 'weather-icon' not found.");
-    }
+    weatherIconEl.className = 'wi weather-icon';
+    weatherIconEl.classList.add(iconClass);
   } catch (error) {
     console.error("Error fetching weather icon:", error);
-    document.getElementById('weather-icon').className = "wi wi-na"; 
+    weatherIconEl.className = "wi wi-na";
   }
 }
+
 
 function mapWeatherCodeToIcon(code) {
   const iconMap = {
@@ -252,19 +222,19 @@ async function getViewMondoData() {
     };
     
 
-    const airTemp = findValByName("Air Temperature");
-    const dewPoint = findValByName("Dew Point");
-    const humidity = findValByName("Rel. Humidity");
+    //const airTemp = findValByName("Air Temperature");
+    //const dewPoint = findValByName("Dew Point");
+    //const humidity = findValByName("Rel. Humidity");
 
     // Populate first column
-    const leftEl = document.getElementById('viewmondo-left');
-    if (leftEl) {
-      leftEl.innerHTML = `
-        <div class="weather-row"><span class="label">Air Temp:</span><span class="value">${airTemp}</span></div>
-        <div class="weather-row"><span class="label">Dew Point:</span><span class="value">${dewPoint}</span></div>
-        <div class="weather-row"><span class="label">RH:</span><span class="value">${humidity}</span></div>
-      `;
-    }
+    //const leftEl = document.getElementById('viewmondo-left');
+    //if (leftEl) {
+    //  leftEl.innerHTML = `
+    //    <div class="weather-row"><span class="label">Air Temp:</span><span class="value">${airTemp}</span></div>
+    //    <div class="weather-row"><span class="label">Dew Point:</span><span class="value">${dewPoint}</span></div>
+    //    <div class="weather-row"><span class="label">RH:</span><span class="value">${humidity}</span></div>
+    //  `;
+    //}
 
     // Still show all data in full section
     const viewMondoEl = document.getElementById('viewmondo');
@@ -296,8 +266,8 @@ async function getViewMondoData() {
 
 function refreshData() {
   getWeather();
-  getDatis();
-  getViewMondoData();
+  //getDatis();
+  //getViewMondoData();
 
   const now = new Date();
   const timeStr = now.toLocaleTimeString('en-GB', {
