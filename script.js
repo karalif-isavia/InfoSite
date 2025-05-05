@@ -73,9 +73,9 @@ async function getWeather() {
 
       const iwsEl = document.getElementById('iws-data');
       iwsEl.innerHTML = `
-        <div class="weather-row"><span class="label">IWS Speed:</span><span class="value">${iwsSpeed} kts</span></div>
-        <div class="weather-row"><span class="label">IWS Gust:</span><span class="value">${iwsGust} kts</span></div>
-        <div class="weather-row"><span class="label">IWS Direction:</span><span class="value">${iwsDir}°</span></div>
+        <div class="weather-row"><span class="label">Apron Wind Speed:</span><span class="value">${iwsSpeed} kts</span></div>
+        <div class="weather-row"><span class="label">Gust:</span><span class="value">${iwsGust} kts</span></div>
+        <div class="weather-row"><span class="label">Direction:</span><span class="value">${iwsDir}°</span></div>
       `;
 
       const windArrowEl = document.getElementById('wind-arrow');
