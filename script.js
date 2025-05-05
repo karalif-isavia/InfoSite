@@ -37,26 +37,23 @@ async function getWeather() {
 
     document.getElementById('weather').innerHTML = `
       <div class="weather-columns">
-        <div class="weather-left weather-block" id="viewmondo-left">
-          <div class="weather-row"><span class="label">Air Temp:</span><span class="value">--</span></div>
-          <div class="weather-row"><span class="label">Dew Point:</span><span class="value">--</span></div>
-          <div class="weather-row"><span class="label">RH:</span><span class="value">--</span></div>
+        <div class="weather-left weather-block">
+          <!-- METAR IFRAME COLUMN -->
+          <iframe src="https://metar-taf.com/BIKF?layout=landscape&qnh=hPa&rh=rh" style="width:100%; height:280px; border:none;"></iframe>
         </div>
-
-        <div class="weather-picture">
-          <i id="weather-icon" class="weather-icon"></i>
-        </div>
-
+    
+        <!-- WEATHER ARROW -->
         <div class="weather-arrow">
           <i id="wind-arrow" class="wi wi-direction-up"></i>
         </div>
-
+    
+        <!-- IWS WIND DATA -->
         <div class="weather-right weather-block" id="iws-data">
           <div class="weather-row">Loading IWS wind data...</div>
         </div>
       </div>
     `;
-
+  
     await fetchWeatherIcon();
 
     // Fetch IWS and update 4th column + arrow
@@ -230,19 +227,19 @@ async function getViewMondoData() {
     };
     
 
-    const airTemp = findValByName("Air Temperature");
-    const dewPoint = findValByName("Dew Point");
-    const humidity = findValByName("Rel. Humidity");
+    //const airTemp = findValByName("Air Temperature");
+    //const dewPoint = findValByName("Dew Point");
+    //const humidity = findValByName("Rel. Humidity");
 
     // Populate first column
-    const leftEl = document.getElementById('viewmondo-left');
-    if (leftEl) {
-      leftEl.innerHTML = `
-        <div class="weather-row"><span class="label">Air Temp:</span><span class="value">${airTemp}</span></div>
-        <div class="weather-row"><span class="label">Dew Point:</span><span class="value">${dewPoint}</span></div>
-        <div class="weather-row"><span class="label">RH:</span><span class="value">${humidity}</span></div>
-      `;
-    }
+    //const leftEl = document.getElementById('viewmondo-left');
+    //if (leftEl) {
+    //  leftEl.innerHTML = `
+    //    <div class="weather-row"><span class="label">Air Temp:</span><span class="value">${airTemp}</span></div>
+    //    <div class="weather-row"><span class="label">Dew Point:</span><span class="value">${dewPoint}</span></div>
+    //    <div class="weather-row"><span class="label">RH:</span><span class="value">${humidity}</span></div>
+    //  `;
+    //}
 
     // Still show all data in full section
     const viewMondoEl = document.getElementById('viewmondo');
