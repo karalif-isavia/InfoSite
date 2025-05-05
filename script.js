@@ -92,8 +92,10 @@ async function getWeather() {
   }
 }
 
-
 async function fetchWeatherIcon() {
+  const weatherIconEl = document.getElementById('weather-icon');
+  if (!weatherIconEl) return; // Exit early if icon is not present
+
   const latitude = 63.985; // Keflavík
   const longitude = -22.605;
   const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=weathercode&timezone=auto`;
@@ -104,16 +106,14 @@ async function fetchWeatherIcon() {
     const weatherCode = data.current.weathercode;
 
     const iconClass = mapWeatherCodeToIcon(weatherCode);
-    const weatherIconEl = document.getElementById('weather-icon');
-
-    weatherIconEl.className = 'wi weather-icon'; 
-
+    weatherIconEl.className = 'wi weather-icon';
     weatherIconEl.classList.add(iconClass);
   } catch (error) {
     console.error("Error fetching weather icon:", error);
-    document.getElementById('weather-icon').className = "wi wi-na"; 
+    weatherIconEl.className = "wi wi-na";
   }
 }
+
 
 function mapWeatherCodeToIcon(code) {
   const iconMap = {
