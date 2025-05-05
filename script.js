@@ -37,11 +37,11 @@ async function getWeather() {
 
     document.getElementById('weather').innerHTML = `
       <div class="weather-columns">
-        <div class="weather-left weather-block">
-          <!-- METAR IFRAME COLUMN -->
-          <iframe src="https://metar-taf.com/BIKF?layout=landscape&qnh=hPa&rh=rh" style="width:100%; height:280px; border:none;"></iframe>
+        <div class="weather-left weather-block" style="min-width: 350px;">
+          <a href="https://metar-taf.com/BIKF" id="metartaf-XZ3PQ1eU" style="font-size:18px; font-weight:500; color:#000; width:350px; height:278px; display:block">METAR Keflavik International Airport</a>
+          <script async defer crossorigin="anonymous" src="https://metar-taf.com/embed-js/BIKF?u=68679&layout=landscape&qnh=hPa&rh=rh&target=XZ3PQ1eU"></script>
         </div>
-    
+
         <!-- WEATHER ARROW -->
         <div class="weather-arrow">
           <i id="wind-arrow" class="wi wi-direction-up"></i>
@@ -54,7 +54,7 @@ async function getWeather() {
       </div>
     `;
   
-    await fetchWeatherIcon();
+    //await fetchWeatherIcon();
 
     // Fetch IWS and update 4th column + arrow
     try {
