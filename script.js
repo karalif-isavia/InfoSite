@@ -35,7 +35,7 @@ async function getWeather() {
     const windSpeedAvg = avg(windSensors.map(w => w?.Speed?.Value ?? 0)).toFixed(1);
     const gustAvg = avg(windSensors.map(w => w?.Speed10MinutesMax?.Value ?? 0)).toFixed(1);
 
-    document.getElementById('weather').innerHTML = `
+    /*document.getElementById('weather').innerHTML = `
       <div class="weather-columns">
         <div class="weather-left weather-block" id="viewmondo-left">
           <div class="weather-row"><span class="label">Air Temp:</span><span class="value">--</span></div>
@@ -56,7 +56,27 @@ async function getWeather() {
         </div>
       </div>
     `;
+*/
 
+    document.getElementById('weather').innerHTML = `
+      <div class="weather-columns">
+        <div class="weather-left weather-block" id="viewmondo-left">
+
+          <a href="https://metar-taf.com/BIKF" id="metartaf-tvu95fAt" style="font-size:18px; font-weight:500; color:#000; width:300px; height:435px; display:block">METAR for BIKF</a>
+            <script async defer crossorigin="anonymous" src="https://metar-taf.com/embed-js/BIKF?qnh=hPa&rh=rh&target=tvu95fAt"></script>
+          
+        </div>
+
+        <div class="weather-arrow">
+          <i id="wind-arrow" class="wi wi-direction-up"></i>
+        </div>
+
+        <div class="weather-right weather-block" id="iws-data">
+          <div class="weather-row">Loading IWS wind data...</div>
+        </div>
+      </div>
+    `;
+    
     await fetchWeatherIcon();
 
     // Fetch IWS and update 4th column + arrow
