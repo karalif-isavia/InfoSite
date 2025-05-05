@@ -277,11 +277,13 @@ async function getViewMondoData() {
   }
 }
 
-
-
-
-window.onload = function() {
+function refreshData() {
   getWeather();
   getDatis();
   getViewMondoData();
+}
+
+window.onload = function() {
+  refreshData();                      // initial load
+  setInterval(refreshData, 30000);    // every 30 seconds
 };
