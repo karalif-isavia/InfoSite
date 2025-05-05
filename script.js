@@ -227,10 +227,13 @@ async function getViewMondoData() {
         return meta?.name === name;
       });
       const meta = entry ? channelMap[entry.SensorChannelId] : null;
-      return entry && meta
-        ? `${entry.Value.toFixed(2)} ${meta.unit}`
-        : "N/A";
+      if (entry && meta) {
+        const decimals = ["Air Temperature", "Dew Point", "Rel. Humidity"].includes(meta.name) ? 1 : 2;
+        return `${entry.Value.toFixed(decimals)} ${meta.unit}`;
+      }
+      return "N/A";
     };
+    
 
     const airTemp = findValByName("Air Temperature");
     const dewPoint = findValByName("Dew Point");
