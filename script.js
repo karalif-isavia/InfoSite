@@ -63,11 +63,12 @@ async function getWeather() {
         <i id="wind-arrow" class="wi wi-direction-up"></i> <!-- ✅ CHANGE wi-wind -> wi-direction-up -->
       </div>
   
-      <div class="weather-right weather-block">
-        <div class="weather-row"><span class="label">Avg Speed:</span><span class="value">${windSpeedAvg} kts</span></div>
-        <div class="weather-row"><span class="label">Gust:</span><span class="value">${gustAvg} kts</span></div>
-        <div class="weather-row"><span class="label">Direction (19):</span><span class="value">${windDirRWY19}°</span></div>
+      <div class="weather-right weather-block" id="iws-data">
+        <div class="weather-row"><span class="label">IWS Speed:</span><span class="value">--</span></div>
+        <div class="weather-row"><span class="label">IWS Gust:</span><span class="value">--</span></div>
+        <div class="weather-row"><span class="label">IWS Direction:</span><span class="value">--</span></div>
       </div>
+
     </div>
   `;
   
@@ -146,38 +147,32 @@ async function getIwsWind() {
     const response = await fetch('https://iws.isavia.is/weather/BIKF');
     const json = await response.json();
 
-    const data = json.data;
-    const rwy19 = data?.rwy19;
-
-    if (!rwy19) {
-      throw new Error("No RWY19 data in IWS response.");
-    }
+    const rwy19 = json?.data?.rwy19;
+    if (!rwy19) throw new Error("No RWY19 data in IWS response.");
 
     const speed = rwy19.windSpeed?.value?.toFixed(1) ?? "N/A";
-    const direction = rwy19.windDirection?.value ?? "N/A";
     const gust = rwy19.windSpeed10MinutesMax?.value?.toFixed(1) ?? "N/A";
+    const direction = rwy19.windDirection?.value ?? "N/A";
 
-    // 🔁 Update the right side of the weather block
-    const rightColumn = document.querySelector('.weather-right');
-    rightColumn.innerHTML = `
-      <div class="weather-row"><span class="label">IWS Speed:</span><span class="value">${speed} kts</span></div>
-      <div class="weather-row"><span class="label">IWS Gust:</span><span class="value">${gust} kts</span></div>
-      <div class="weather-row"><span class="label">IWS Direction:</span><span class="value">${direction}°</span></div>
-    `;
+    const iwsEl = document.getElementById('iws-data');
+    if (iwsEl) {
+      iwsEl.innerHTML = `
+        <div class="weather-row"><span class="label">IWS Speed:</span><span class="value">${speed} kts</span></div>
+        <div class="weather-row"><span class="label">IWS Gust:</span><span class="value">${gust} kts</span></div>
+        <div class="weather-row"><span class="label">IWS Direction:</span><span class="value">${direction}°</span></div>
+      `;
+    }
 
-    // 🔁 Use IWS direction for the wind arrow
     const windArrowEl = document.getElementById('wind-arrow');
     windArrowEl.className = 'wi wi-direction-up';
     windArrowEl.style.transform = `rotate(${parseFloat(direction)}deg)`;
 
   } catch (error) {
-    console.error("IWS Weather error:", error.message || error);
-    const rightColumn = document.querySelector('.weather-right');
-    rightColumn.innerHTML = `<div class="weather-row">Failed to load IWS weather.</div>`;
+    console.error("IWS error:", error);
+    const iwsEl = document.getElementById('iws-data');
+    if (iwsEl) iwsEl.innerHTML = `<div class="weather-row">Failed to load IWS wind data.</div>`;
   }
 }
-
-
 
 
 // ATIS
