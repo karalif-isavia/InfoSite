@@ -283,12 +283,19 @@ function refreshData() {
   getViewMondoData();
 
   const now = new Date();
-  const timestamp = now.toLocaleTimeString('en-GB', {
+  const timeStr = now.toLocaleTimeString('en-GB', {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit'
   });
-  document.getElementById('last-updated').innerText = `Last updated: ${timestamp}`;
+  const dateStr = now.toLocaleDateString('en-GB', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit'
+  });
+  document.getElementById('last-updated').innerText = `Last updated: ${dateStr}, ${timeStr}`;
+  
 }
 
 window.onload = function() {
