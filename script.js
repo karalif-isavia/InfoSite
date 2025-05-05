@@ -157,18 +157,26 @@ async function getIwsWind() {
     const direction = rwy19.windDirection?.value ?? "N/A";
     const gust = rwy19.windSpeed10MinutesMax?.value?.toFixed(1) ?? "N/A";
 
-    const iwsEl = document.getElementById('iws-weather');
-    iwsEl.innerHTML = `
-      <h3>IWS Wind Data (RWY19)</h3>
-      <div class="weather-row"><span class="label">Speed:</span><span class="value">${speed} kts</span></div>
-      <div class="weather-row"><span class="label">Direction:</span><span class="value">${direction}°</span></div>
-      <div class="weather-row"><span class="label">Gust (10 min max):</span><span class="value">${gust} kts</span></div>
+    // 🔁 Update the right side of the weather block
+    const rightColumn = document.querySelector('.weather-right');
+    rightColumn.innerHTML = `
+      <div class="weather-row"><span class="label">IWS Speed:</span><span class="value">${speed} kts</span></div>
+      <div class="weather-row"><span class="label">IWS Gust:</span><span class="value">${gust} kts</span></div>
+      <div class="weather-row"><span class="label">IWS Direction:</span><span class="value">${direction}°</span></div>
     `;
+
+    // 🔁 Use IWS direction for the wind arrow
+    const windArrowEl = document.getElementById('wind-arrow');
+    windArrowEl.className = 'wi wi-direction-up';
+    windArrowEl.style.transform = `rotate(${parseFloat(direction)}deg)`;
+
   } catch (error) {
     console.error("IWS Weather error:", error.message || error);
-    document.getElementById('iws-weather').innerText = "Failed to load IWS weather.";
+    const rightColumn = document.querySelector('.weather-right');
+    rightColumn.innerHTML = `<div class="weather-row">Failed to load IWS weather.</div>`;
   }
 }
+
 
 
 
