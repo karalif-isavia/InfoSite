@@ -271,8 +271,8 @@ async function getViewMondoData() {
 
 function refreshData() {
   getWeather();
-  getDatis();
-  getViewMondoData();
+  //getDatis();
+  //getViewMondoData();
 
   const now = new Date();
   const timeStr = now.toLocaleTimeString('en-GB', {
