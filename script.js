@@ -168,6 +168,8 @@ async function getDatis() {
     const rawTimestamp = lines[atisIndex + 1]?.match(/(\d{4})Z/);
     const timeZulu = rawTimestamp ? `${rawTimestamp[1].slice(0, 2)}:${rawTimestamp[1].slice(2)}` : "Time N/A";
 
+    const datisEl = document.getElementById('datis');
+
     if (hasLowVis) {
       const statusLine = `
         <span class="status-line">
@@ -179,14 +181,14 @@ async function getDatis() {
           <strong>6.12 Lágskyggnis aðgerðir:</strong> Sérstakt verklag er virkjað fyrir lágskyggni. Á meðan því stendur er umferð ökutækja og fjöldi einstaklinga að vinnu á flugvellinum verulega takmörkuð. Athugið að einstaklingum er <strong>EKKI</strong> heimilt að ganga frá silfurhliði að þjónustuhúsi á meðan aðgerðir eru virkar.
         </div>`;
     
-      const datisEl = document.getElementById('datis');
       datisEl.innerHTML = statusLine + procedureInfo;
       datisEl.className = 'datis-banner lvo-active';
+      datisEl.style.display = 'block';
     } else {
-      document.getElementById('datis').innerHTML = '';
-      document.getElementById('datis').className = ''; // Clear classes
+      datisEl.innerHTML = '';
+      datisEl.className = '';
+      datisEl.style.display = 'none'; 
     }
-    
 
   } catch (error) {
     console.error("DATIS API error:", error.message || error);
