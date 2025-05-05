@@ -216,31 +216,28 @@ async function getDatis() {
 
 async function getViewMondoData() {
   try {
-    const response = await fetch('https://site-proxy-m4fs.onrender.com/viewmondo/rwy10');
+    const response = await fetch('https://site-proxy-m4fs.onrender.com/viewmondo/rwy19');
     const json = await response.json();
 
     const station = json.station;
-    const measures = json.measures.MeasValRows?.[0] || {};
+    const rows = json.measures?.MeasValRows;
 
     console.log("Station object:", station);
-    console.log("First measurement row:", measures);
-    
-    if (!measures) {
+    console.log("All MeasValRows:", rows);
+
+    if (!rows?.length) {
       document.getElementById('viewmondo').innerText = "No measurement data available.";
       return;
     }
-    
-    console.log("MeasValRows keys:", Object.keys(measures));
-    const viewMondoEl = document.getElementById('viewmondo');
 
+    const firstRow = rows[0];
+    console.log("First row keys:", Object.keys(firstRow));
+    console.log("First row values:", firstRow);
+
+    const viewMondoEl = document.getElementById('viewmondo');
     viewMondoEl.innerHTML = `
       <h3>ViewMondo – ${station.StationName}</h3>
-      <div class="weather-row"><span class="label">Air Temp:</span><span class="value">${measures["Air Temperature [°C]"] ?? "N/A"} °C</span></div>
-      <div class="weather-row"><span class="label">Rel. Humidity:</span><span class="value">${measures["Rel. Humidity [%]"] ?? "N/A"}%</span></div>
-      <div class="weather-row"><span class="label">Dew Point:</span><span class="value">${measures["Dew Point [°C]"] ?? "N/A"} °C</span></div>
-      <div class="weather-row"><span class="label">Road Temp:</span><span class="value">${measures["Surface Temperature [°C]"] ?? "N/A"} °C</span></div>
-      <div class="weather-row"><span class="label">Friction:</span><span class="value">${measures["Friction []"] ?? "N/A"}</span></div>
-      <div class="weather-row"><span class="label">Road Condition:</span><span class="value">${measures["Road Condition Lufft IRS31Pro [logic]"] ?? "N/A"}</span></div>
+      <pre>${JSON.stringify(firstRow, null, 2)}</pre> <!-- show full raw object for now -->
     `;
   } catch (error) {
     console.error("ViewMondo error:", error.message || error);
@@ -248,6 +245,7 @@ async function getViewMondoData() {
     viewMondoEl.innerText = "Failed to load ViewMondo data.";
   }
 }
+
 
 
 window.onload = function() {
