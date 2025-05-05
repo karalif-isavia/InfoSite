@@ -216,28 +216,36 @@ async function getDatis() {
 
 async function getViewMondoData() {
   try {
-    const response = await fetch('https://site-proxy-m4fs.onrender.com/viewmondo/rwy19');
+    const response = await fetch('https://site-proxy-m4fs.onrender.com/viewmondo/rwy28');
     const json = await response.json();
 
     const station = json.station;
-    const rows = json.measures?.MeasValRows;
+    const channels = station.SensorChannels;
+    const values = station.LastData?.MeasureValues || [];
 
-    console.log("Station object:", station);
-    console.log("All MeasValRows:", rows);
+    // Build a map from channel ID → { name, unit }
+    const channelMap = {};
+    channels.forEach(ch => {
+      channelMap[ch.SensorChannelId] = {
+        name: ch.SensorChannelName,
+        unit: ch.SensorChannelUnit
+      };
+    });
 
-    if (!rows?.length) {
-      document.getElementById('viewmondo').innerText = "No measurement data available.";
-      return;
-    }
+    // Build a readable list of values
+    const displayedRows = values.map(val => {
+      const meta = channelMap[val.SensorChannelId];
+      if (!meta) return null;
 
-    const mostRecentRow = rows.at(-1);
-    console.log("Most recent row keys:", Object.keys(mostRecentRow));
-    console.log("Most recent row values:", mostRecentRow);
+      const valueDisplay = val.Value != null ? `${val.Value.toFixed(2)} ${meta.unit}` : "N/A";
+      const status = val.StatusText ? ` (${val.StatusText})` : "";
+      return `<div class="weather-row"><span class="label">${meta.name}:</span><span class="value">${valueDisplay}${status}</span></div>`;
+    }).filter(Boolean).join("");
 
     const viewMondoEl = document.getElementById('viewmondo');
     viewMondoEl.innerHTML = `
       <h3>ViewMondo – ${station.StationName}</h3>
-      <pre>${JSON.stringify(mostRecentRow, null, 2)}</pre>
+      ${displayedRows}
     `;
   } catch (error) {
     console.error("ViewMondo error:", error.message || error);
@@ -245,6 +253,7 @@ async function getViewMondoData() {
     viewMondoEl.innerText = "Failed to load ViewMondo data.";
   }
 }
+
 
 
 
