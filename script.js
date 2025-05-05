@@ -230,14 +230,14 @@ async function getViewMondoData() {
       return;
     }
 
-    const firstRow = rows[0];
-    console.log("First row keys:", Object.keys(firstRow));
-    console.log("First row values:", firstRow);
+    const mostRecentRow = rows.at(-1);
+    console.log("Most recent row keys:", Object.keys(mostRecentRow));
+    console.log("Most recent row values:", mostRecentRow);
 
     const viewMondoEl = document.getElementById('viewmondo');
     viewMondoEl.innerHTML = `
       <h3>ViewMondo – ${station.StationName}</h3>
-      <pre>${JSON.stringify(firstRow, null, 2)}</pre> <!-- show full raw object for now -->
+      <pre>${JSON.stringify(mostRecentRow, null, 2)}</pre>
     `;
   } catch (error) {
     console.error("ViewMondo error:", error.message || error);
