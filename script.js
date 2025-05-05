@@ -40,6 +40,9 @@ async function getWeather() {
         <div class="weather-left weather-block" style="min-width: 350px;">
           <a href="https://metar-taf.com/BIKF" id="metartaf-XZ3PQ1eU" style="font-size:18px; font-weight:500; color:#000; width:350px; height:278px; display:block">METAR Keflavik International Airport</a>
         </div>
+        <div class="weather-duplicate weather-block" id="iws-duplicate">
+          <div class="weather-row">Loading...</div>
+        </div>
         <div class="weather-arrow">
           <i id="wind-arrow" class="wi wi-direction-up"></i>
         </div>
@@ -48,10 +51,8 @@ async function getWeather() {
         </div>
       </div>
     `;
-  
-    //await fetchWeatherIcon();
 
-    // Fetch IWS and update 4th column + arrow
+    // Fetch IWS and update UI
     try {
       const iwsResponse = await fetch('https://iws.isavia.is/weather/BIKF');
       const iwsJson = await iwsResponse.json();
@@ -63,6 +64,7 @@ async function getWeather() {
       const iwsGust = apron.windSpeed10MinutesMax?.value?.toFixed(1) ?? "N/A";
       const iwsDir = apron.windDirection?.value != null ? Math.round(apron.windDirection.value) : "N/A";
 
+      // Full IWS data in the right column
       const iwsEl = document.getElementById('iws-data');
       iwsEl.innerHTML = `
         <div class="weather-row"><span class="label">Apron Wind Speed:</span><span class="value">${iwsSpeed} kts</span></div>
@@ -70,6 +72,18 @@ async function getWeather() {
         <div class="weather-row"><span class="label">Direction:</span><span class="value">${iwsDir}°</span></div>
       `;
 
+      // Duplicate wind info left of arrow
+      const dupEl = document.getElementById('iws-duplicate');
+      dupEl.innerHTML = `
+        <div class="weather-row"><span class="label">Wind:</span><span class="value">${iwsSpeed} kts</span></div>
+        <div class="weather-row"><span class="label">Gusts:</span><span class="value">${iwsGust} kts</span></div>
+        <div class="weather-row"><span class="label">Dir:</span><span class="value">${iwsDir}°</span></div>
+        <div class="weather-icon">
+          <i class="wi wi-direction-up" style="transform: rotate(${parseFloat(iwsDir)}deg); font-size: 120px;"></i>
+        </div>
+      `;
+
+      // Main wind arrow
       const windArrowEl = document.getElementById('wind-arrow');
       windArrowEl.className = 'wi wi-direction-up';
       windArrowEl.style.transform = `rotate(${parseFloat(iwsDir)}deg)`;
@@ -86,6 +100,7 @@ async function getWeather() {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
+
 
 async function fetchWeatherIcon() {
   const weatherIconEl = document.getElementById('weather-icon');
