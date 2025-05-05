@@ -30,10 +30,10 @@ async function getWeather() {
     const json = await response.json();
     const data = json.data;
 
-    const tempParams = data.Sensors.Temperature.Parameters;
-    const temp = tempParams.find(p => p.Name === "Temp")?.Value ?? "N/A";
-    const dew = tempParams.find(p => p.Name === "Dew")?.Value ?? "N/A";
-    const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
+    //const tempParams = data.Sensors.Temperature.Parameters;
+    //const temp = tempParams.find(p => p.Name === "Temp")?.Value ?? "N/A";
+    //const dew = tempParams.find(p => p.Name === "Dew")?.Value ?? "N/A";
+    //const rh = tempParams.find(p => p.Name === "RH")?.Value ?? "N/A";
 
     const windSensors = data.Sensors.Wind;
     const avg = arr => arr.reduce((sum, val) => sum + parseFloat(val), 0) / arr.length;
@@ -43,11 +43,12 @@ async function getWeather() {
     // Initial HTML including 4th column placeholder
     document.getElementById('weather').innerHTML = `
       <div class="weather-columns">
-        <div class="weather-left weather-block">
-          <div class="weather-row"><span class="label">Temp:</span><span class="value">${temp}°C</span></div>
-          <div class="weather-row"><span class="label">Dew:</span><span class="value">${dew}°C</span></div>
-          <div class="weather-row"><span class="label">RH:</span><span class="value">${rh}%</span></div>
+        <div class="weather-left weather-block" id="viewmondo-left">
+          <div class="weather-row"><span class="label">Air Temp:</span><span class="value">--</span></div>
+          <div class="weather-row"><span class="label">Dew Point:</span><span class="value">--</span></div>
+          <div class="weather-row"><span class="label">RH:</span><span class="value">--</span></div>
         </div>
+
 
         <div class="weather-picture">
           <i id="weather-icon" class="wi wi-day-sunny weather-icon"></i>
@@ -219,7 +220,34 @@ async function getViewMondoData() {
       };
     });
 
-    // Build a readable list of values
+    // Helper to find values by sensor name
+    const findValByName = (name) => {
+      const entry = values.find(val => {
+        const meta = channelMap[val.SensorChannelId];
+        return meta?.name === name;
+      });
+      const meta = entry ? channelMap[entry.SensorChannelId] : null;
+      return entry && meta
+        ? `${entry.Value.toFixed(2)} ${meta.unit}`
+        : "N/A";
+    };
+
+    const airTemp = findValByName("Air Temperature");
+    const dewPoint = findValByName("Dew Point");
+    const humidity = findValByName("Rel. Humidity");
+
+    // Populate first column
+    const leftEl = document.getElementById('viewmondo-left');
+    if (leftEl) {
+      leftEl.innerHTML = `
+        <div class="weather-row"><span class="label">Air Temp:</span><span class="value">${airTemp}</span></div>
+        <div class="weather-row"><span class="label">Dew Point:</span><span class="value">${dewPoint}</span></div>
+        <div class="weather-row"><span class="label">RH:</span><span class="value">${humidity}</span></div>
+      `;
+    }
+
+    // Still show all data in full section
+    const viewMondoEl = document.getElementById('viewmondo');
     const displayedRows = values.map(val => {
       const meta = channelMap[val.SensorChannelId];
       if (!meta) return null;
@@ -229,15 +257,14 @@ async function getViewMondoData() {
       return `<div class="weather-row"><span class="label">${meta.name}:</span><span class="value">${valueDisplay}${status}</span></div>`;
     }).filter(Boolean).join("");
 
-    const viewMondoEl = document.getElementById('viewmondo');
     viewMondoEl.innerHTML = `
       <h3>ViewMondo – ${station.StationName}</h3>
       ${displayedRows}
     `;
+
   } catch (error) {
     console.error("ViewMondo error:", error.message || error);
-    const viewMondoEl = document.getElementById('viewmondo');
-    viewMondoEl.innerText = "Failed to load ViewMondo data.";
+    document.getElementById('viewmondo').innerText = "Failed to load ViewMondo data.";
   }
 }
 
