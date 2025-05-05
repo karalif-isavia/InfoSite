@@ -49,9 +49,8 @@ async function getWeather() {
           <div class="weather-row"><span class="label">RH:</span><span class="value">--</span></div>
         </div>
 
-
         <div class="weather-picture">
-          <i id="weather-icon" class="wi wi-day-sunny weather-icon"></i>
+          <i id="weather-icon" class="weather-icon"></i>
         </div>
 
         <div class="weather-arrow">
