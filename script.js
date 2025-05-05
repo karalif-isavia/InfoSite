@@ -222,8 +222,15 @@ async function getViewMondoData() {
     const station = json.station;
     const measures = json.measures.MeasValRows?.[0] || {};
 
+    console.log("Station object:", station);
+    console.log("First measurement row:", measures);
+    
+    if (!measures) {
+      document.getElementById('viewmondo').innerText = "No measurement data available.";
+      return;
+    }
+    
     console.log("MeasValRows keys:", Object.keys(measures));
-
     const viewMondoEl = document.getElementById('viewmondo');
 
     viewMondoEl.innerHTML = `
