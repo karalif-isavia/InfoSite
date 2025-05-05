@@ -281,6 +281,14 @@ function refreshData() {
   getWeather();
   getDatis();
   getViewMondoData();
+
+  const now = new Date();
+  const timestamp = now.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+  document.getElementById('last-updated').innerText = `Last updated: ${timestamp}`;
 }
 
 window.onload = function() {
