@@ -76,7 +76,7 @@ async function getWeather() {
 
       const iwsSpeed = apron.windSpeed?.value?.toFixed(1) ?? "N/A";
       const iwsGust = apron.windSpeed10MinutesMax?.value?.toFixed(1) ?? "N/A";
-      const iwsDir = apron.windDirection?.value ?? "N/A";
+      const iwsDir = apron.windDirection?.value != null ? Math.round(apron.windDirection.value) : "N/A";
 
       const iwsEl = document.getElementById('iws-data');
       iwsEl.innerHTML = `
@@ -252,7 +252,13 @@ async function getViewMondoData() {
       const meta = channelMap[val.SensorChannelId];
       if (!meta) return null;
 
-      const valueDisplay = val.Value != null ? `${val.Value.toFixed(2)} ${meta.unit}` : "N/A";
+      let valueDisplay = "N/A";
+      if (val.Value != null) {
+        const rounded = ["Air Temperature", "Dew Point", "Rel. Humidity"].includes(meta.name)
+          ? val.Value.toFixed(1)
+          : val.Value.toFixed(2);
+        valueDisplay = `${rounded} ${meta.unit}`;
+      }      
       const status = val.StatusText ? ` (${val.StatusText})` : "";
       return `<div class="weather-row"><span class="label">${meta.name}:</span><span class="value">${valueDisplay}${status}</span></div>`;
     }).filter(Boolean).join("");
