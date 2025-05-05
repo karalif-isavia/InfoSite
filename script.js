@@ -128,10 +128,12 @@ async function fetchWeatherIcon() {
 
     const iconClass = mapWeatherCodeToIcon(weatherCode);
     const weatherIconEl = document.getElementById('weather-icon');
-
-    weatherIconEl.className = 'wi weather-icon'; 
-
-    weatherIconEl.classList.add(iconClass);
+    if (weatherIconEl) {
+      weatherIconEl.className = 'wi weather-icon'; 
+      weatherIconEl.classList.add(iconClass);
+    } else {
+      console.error("Element with ID 'weather-icon' not found.");
+    }
   } catch (error) {
     console.error("Error fetching weather icon:", error);
     document.getElementById('weather-icon').className = "wi wi-na"; 
