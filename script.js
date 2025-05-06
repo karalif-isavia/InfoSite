@@ -39,7 +39,7 @@ async function getWeather() {
     <div class="weather-columns">
       <div class="weather-right weather-block">
         <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
-          <a href="https://metar-taf.com/BIKF" id="metartaf-NKaps0w2" style="font-size:18px; font-weight:500; color:#000; width:350px; height:278px; display:block">METAR Keflavik International Airport</a>
+          <a href="https://metar-taf.com/BIKF" id="metartaf-NKaps0w2" style="font-size:18px; font-weight:500; color:#000; width:350px; height:278px; display:block">METAR Information for BIKF</a>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ async function getWeather() {
       const iwsEl = document.getElementById('iws-data');
       iwsEl.innerHTML = `
         <div class="weather-row"><span class="label">Apron Wind Speed:</span><span class="value">${iwsSpeed} kts</span></div>
-        <div class="weather-row"><span class="label">Gust:</span><span class="value">${iwsGust} kts</span></div>
+        <div class="weather-row"><span class="label">Gust (10 min max):</span><span class="value">${iwsGust} kts</span></div>
         <div class="weather-row"><span class="label">Direction:</span><span class="value">${iwsDir}°</span></div>
       `;
     } catch (err) {
