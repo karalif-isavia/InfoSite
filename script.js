@@ -36,37 +36,26 @@ async function getWeather() {
     const gustAvg = avg(windSensors.map(w => w?.Speed10MinutesMax?.Value ?? 0)).toFixed(1);
 
     document.getElementById('weather').innerHTML = `
-      <div class="weather-columns">
-        <div class="weather-right weather-block">
-          <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
-            <a href="https://metar-taf.com/BIKF"
-              id="metartaf-AYS1g8XJ"
-              style="font-size:18px; font-weight:500; color:#000; width:525px; height:417px; display:block">
-              METAR Keflavik International Airport
-            </a>
-          </div>
-        </div>
-    
-        <div class="weather-right weather-block" id="iws-data">
-          <div class="weather-row">Loading IWS wind data...</div>
+    <div class="weather-columns">
+      <div class="weather-right weather-block">
+        <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
+          <a href="https://metar-taf.com/BIKF" id="metartaf-NKaps0w2" style="font-size:18px; font-weight:500; color:#000; width:350px; height:278px; display:block">METAR Keflavik International Airport</a>
         </div>
       </div>
-    `;
-  
-    
-    // Remove previous copies of the script if any
-    document.querySelectorAll('script[src*="metar-taf.com/embed-js/BIKF"]').forEach(s => s.remove());
 
-    // Inject the matching script
+      <div class="weather-right weather-block" id="iws-data">
+        <div class="weather-row">Loading IWS wind data...</div>
+      </div>
+    </div>
+  `;
+
+    // Load the landscape widget script
     const script = document.createElement('script');
-    script.src = 'https://metar-taf.com/embed-js/BIKF?layout=landscape&rh=rh&target=AYS1g8XJ';
+    script.src = 'https://metar-taf.com/embed-js/BIKF?layout=landscape&qnh=hPa&rh=rh&target=NKaps0w2';
     script.async = true;
     script.defer = true;
     script.crossOrigin = 'anonymous';
     document.body.appendChild(script);
-
-  
-  
 
     // IWS Wind Data
     try {
@@ -289,10 +278,15 @@ function refreshData() {
     minute: '2-digit',
     second: '2-digit'
   });
-
-  document.getElementById('last-updated').innerText = `Síðast uppfært: ${timeStr}`;
+  const dateStr = now.toLocaleDateString('en-GB', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit'
+  });
+  document.getElementById('last-updated').innerText = `Last updated: ${dateStr}, ${timeStr}`;
+  
 }
-
 
 window.onload = function() {
   refreshData();                      // initial load
