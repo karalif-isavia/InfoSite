@@ -37,20 +37,10 @@ async function getWeather() {
 
     document.getElementById('weather').innerHTML = `
     <div class="weather-columns">
-      <div class="weather-left weather-block" id="viewmondo-left">
-        <div class="weather-row"><span class="label">Air Temp:</span><span class="value">--</span></div>
-        <div class="weather-row"><span class="label">Dew Point:</span><span class="value">--</span></div>
-        <div class="weather-row"><span class="label">RH:</span><span class="value">--</span></div>
-      </div>
-  
       <div class="weather-right weather-block">
         <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
           <a href="https://metar-taf.com/BIKF" id="metartaf-w5tuZoBz" style="font-size:18px; font-weight:500; color:#000; width:300px; height:435px; display:block">METAR Keflavik International Airport</a>
         </div>
-      </div>
-  
-      <div class="weather-picture">
-        <i id="weather-icon" class="weather-icon"></i>
       </div>
   
       <div class="weather-arrow">
@@ -71,7 +61,7 @@ async function getWeather() {
     script.crossOrigin = 'anonymous';
     document.body.appendChild(script);
 
-    await fetchWeatherIcon();
+   // await fetchWeatherIcon();
 
     // Fetch IWS and update 4th column + arrow
     try {
@@ -110,7 +100,7 @@ async function getWeather() {
 }
 
 
-async function fetchWeatherIcon() {
+/*async function fetchWeatherIcon() {
   const latitude = 63.985; // Keflavík
   const longitude = -22.605;
   const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=weathercode&timezone=auto`;
@@ -130,7 +120,7 @@ async function fetchWeatherIcon() {
     console.error("Error fetching weather icon:", error);
     document.getElementById('weather-icon').className = "wi wi-na"; 
   }
-}
+}*/
 
 function mapWeatherCodeToIcon(code) {
   const iconMap = {
@@ -211,7 +201,7 @@ async function getDatis() {
   }
 }
 
-async function getViewMondoData() {
+/*async function getViewMondoData() {
   try {
     const response = await fetch('https://site-proxy-m4fs.onrender.com/viewmondo/rwy28');
     const json = await response.json();
@@ -284,12 +274,12 @@ async function getViewMondoData() {
     console.error("ViewMondo error:", error.message || error);
     document.getElementById('viewmondo').innerText = "Failed to load ViewMondo data.";
   }
-}
+}*/
 
 function refreshData() {
   getWeather();
   getDatis();
-  getViewMondoData();
+  //getViewMondoData();
 
   const now = new Date();
   const timeStr = now.toLocaleTimeString('en-GB', {
