@@ -167,8 +167,8 @@ async function getDatis() {
     const response = await fetch('https://site-proxy-m4fs.onrender.com/datis');
     const text = await response.text();
 
-    const hasLowVis = text.toUpperCase().includes("LOW VIS");
-    //const hasLowVis = text.toUpperCase().includes("BIKF");
+    //const hasLowVis = text.toUpperCase().includes("LOW VIS");
+    const hasLowVis = text.toUpperCase().includes("BIKF");
 
     const atisMatch = text.match(/ATIS\s+([A-Z])/i);
     const atisLetter = atisMatch ? atisMatch[1] : "Unknown";
