@@ -78,7 +78,7 @@ async function getWeather() {
         </div>
     
         <div class="weather-block iws-column">
-          <div class="iws-label">Gusts on Apron</div>
+          <div class="iws-label">Gusts (10 min max) on Apron</div>
           <div class="iws-value">${iwsGust} kts</div>
         </div>
     
