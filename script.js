@@ -36,35 +36,40 @@ async function getWeather() {
     const gustAvg = avg(windSensors.map(w => w?.Speed10MinutesMax?.Value ?? 0)).toFixed(1);
 
     document.getElementById('weather').innerHTML = `
-      <div class="weather-columns">
-        <div class="weather-left weather-block" id="viewmondo-left">
-          <div class="weather-row"><span class="label">Air Temp:</span><span class="value">--</span></div>
-          <div class="weather-row"><span class="label">Dew Point:</span><span class="value">--</span></div>
-          <div class="weather-row"><span class="label">RH:</span><span class="value">--</span></div>
-        </div>
-
-        <div class="weather-right weather-block">
-          <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
-            <a href="https://metar-taf.com/BIKF" id="metartaf-w5tuZoBz" style="font-size:18px; font-weight:500; color:#000; width:150px; height:217px; display:block">METAR Keflavik International Airport</a>
-            <script async defer crossorigin="anonymous" src="https://metar-taf.com/embed-js/BIKF?qnh=hPa&rh=rh&target=w5tuZoBz"></script>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        <div class="weather-picture">
-          <i id="weather-icon" class="weather-icon"></i>
-        </div>
-
-        <div class="weather-arrow">
-          <i id="wind-arrow" class="wi wi-direction-up"></i>
-        </div>
-
-        <div class="weather-right weather-block" id="iws-data">
-          <div class="weather-row">Loading IWS wind data...</div>
+    <div class="weather-columns">
+      <div class="weather-left weather-block" id="viewmondo-left">
+        <div class="weather-row"><span class="label">Air Temp:</span><span class="value">--</span></div>
+        <div class="weather-row"><span class="label">Dew Point:</span><span class="value">--</span></div>
+        <div class="weather-row"><span class="label">RH:</span><span class="value">--</span></div>
+      </div>
+  
+      <div class="weather-right weather-block">
+        <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
+          <a href="https://metar-taf.com/BIKF" id="metartaf-w5tuZoBz" style="font-size:18px; font-weight:500; color:#000; width:150px; height:217px; display:block">METAR Keflavik International Airport</a>
         </div>
       </div>
-    `;
+  
+      <div class="weather-picture">
+        <i id="weather-icon" class="weather-icon"></i>
+      </div>
+  
+      <div class="weather-arrow">
+        <i id="wind-arrow" class="wi wi-direction-up"></i>
+      </div>
+  
+      <div class="weather-right weather-block" id="iws-data">
+        <div class="weather-row">Loading IWS wind data...</div>
+      </div>
+    </div>
+  `;
+  
+
+    const script = document.createElement('script');
+    script.src = 'https://metar-taf.com/embed-js/BIKF?qnh=hPa&rh=rh&target=w5tuZoBz';
+    script.async = true;
+    script.defer = true;
+    script.crossOrigin = 'anonymous';
+    document.body.appendChild(script);
 
     await fetchWeatherIcon();
 
