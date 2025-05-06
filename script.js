@@ -168,7 +168,7 @@ async function getDatis() {
     const text = await response.text();
 
     //const hasLowVis = text.toUpperCase().includes("LOW VIS");
-    const hasLowVis = text.toUpperCase().includes("BIKF");
+    //const hasLowVis = text.toUpperCase().includes("BIKF");
 
     const atisMatch = text.match(/ATIS\s+([A-Z])/i);
     const atisLetter = atisMatch ? atisMatch[1] : "Unknown";
@@ -180,7 +180,7 @@ async function getDatis() {
 
     const datisEl = document.getElementById('datis');
 
-    if (hasLowVis) {
+    /*if (hasLowVis) {
       const statusLine = `
         <span class="status-line">
           <strong> 🚨 Lágskyggnisástand til staðar samkvæmt ATIS ${atisLetter}, gefið út síðast kl. ${timeZulu} 🚨</strong>
@@ -198,7 +198,15 @@ async function getDatis() {
       datisEl.innerHTML = '';
       datisEl.className = '';
       datisEl.style.display = 'none'; 
-    }
+    }*/
+
+    datisEl.innerHTML = `
+      <span class="status-line">
+        <strong>🚨 TEST BANNER: ATIS BIKF Trigger Active 🚨</strong>
+      </span>`;
+    datisEl.className = 'datis-banner lvo-active';
+    datisEl.style.display = 'block';
+    
 
   } catch (error) {
     console.error("DATIS API error:", error.message || error);
