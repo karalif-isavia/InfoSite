@@ -78,9 +78,9 @@ async function getWeather() {
         <div class="weather-row"><span class="label">Direction:</span><span class="value">${iwsDir}°</span></div>
       `;
 
-      const windArrowEl = document.getElementById('wind-arrow');
-      windArrowEl.className = 'wi wi-direction-up';
-      windArrowEl.style.transform = `rotate(${parseFloat(iwsDir)}deg)`;
+      //const windArrowEl = document.getElementById('wind-arrow');
+      //windArrowEl.className = 'wi wi-direction-up';
+      //windArrowEl.style.transform = `rotate(${parseFloat(iwsDir)}deg)`;
 
     } catch (err) {
       console.error("IWS fetch error inside getWeather():", err);
