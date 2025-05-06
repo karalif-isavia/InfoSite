@@ -116,7 +116,7 @@ async function getWeather() {
     console.error("Error fetching weather icon:", error);
     document.getElementById('weather-icon').className = "wi wi-na"; 
   }
-}*/
+}
 
 function mapWeatherCodeToIcon(code) {
   const iconMap = {
@@ -150,6 +150,7 @@ function mapWeatherCodeToIcon(code) {
 
   return iconMap[code] || "wi-na";
 }
+*/
 
 // ATIS
 async function getDatis() {
