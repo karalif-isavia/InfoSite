@@ -71,10 +71,20 @@ async function getWeather() {
 
       const iwsEl = document.getElementById('iws-data');
       iwsEl.innerHTML = `
-        <div class="weather-row"><span class="label">Apron Wind Speed:</span><span class="value">${iwsSpeed} kts</span></div>
-        <div class="weather-row"><span class="label">Gust (10 min max):</span><span class="value">${iwsGust} kts</span></div>
-        <div class="weather-row"><span class="label">Direction:</span><span class="value">${iwsDir}°</span></div>
-      `;
+      <div class="iws-title">APRON WIND</div>
+      <div class="iws-box">
+        <div class="iws-metric">
+          <div class="iws-value">${iwsSpeed} kt</div>
+          <div class="iws-label">average speed</div>
+        </div>
+        <div class="iws-metric">
+          <div class="iws-value">${iwsGust} kt</div>
+          <div class="iws-label">gusts, 10 min max</div>
+        </div>
+      </div>
+    `;
+    
+    
     } catch (err) {
       console.error("IWS fetch error inside getWeather():", err);
       const iwsEl = document.getElementById('iws-data');
