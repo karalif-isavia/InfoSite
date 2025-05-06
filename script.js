@@ -40,8 +40,8 @@ async function getWeather() {
         <div class="weather-right weather-block">
           <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
             <a href="https://metar-taf.com/BIKF"
-              id="metartaf-NKaps0w2"
-              style="font-size:20px; font-weight:600; color:#000; width:380px; height:300px; display:block">
+              id="metartaf-AYS1g8XJ"
+              style="font-size:18px; font-weight:500; color:#000; width:525px; height:417px; display:block">
               METAR Keflavik International Airport
             </a>
           </div>
@@ -53,13 +53,14 @@ async function getWeather() {
       </div>
     `;
     
-    // Append the script separately after DOM is updated
+    // ✅ Inject the exact script separately — DO NOT include it inside innerHTML
     const script = document.createElement('script');
-    script.src = 'https://metar-taf.com/embed-js/BIKF?layout=landscape&qnh=hPa&rh=rh&target=NKaps0w2';
+    script.src = 'https://metar-taf.com/embed-js/BIKF?layout=landscape&rh=rh&target=AYS1g8XJ';
     script.async = true;
     script.defer = true;
     script.crossOrigin = 'anonymous';
     document.body.appendChild(script);
+  
   
 
     // IWS Wind Data
