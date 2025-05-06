@@ -43,10 +43,6 @@ async function getWeather() {
         </div>
       </div>
   
-      <div class="weather-arrow">
-        <i id="wind-arrow" class="wi wi-direction-up"></i>
-      </div>
-  
       <div class="weather-right weather-block" id="iws-data">
         <div class="weather-row">Loading IWS wind data...</div>
       </div>
