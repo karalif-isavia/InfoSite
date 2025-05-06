@@ -36,31 +36,31 @@ async function getWeather() {
     const gustAvg = avg(windSensors.map(w => w?.Speed10MinutesMax?.Value ?? 0)).toFixed(1);
 
     document.getElementById('weather').innerHTML = `
-    <div class="weather-columns">
-      <div class="weather-right weather-block">
-        <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
-          <a href="https://metar-taf.com/BIKF" 
-            id="metartaf-NKaps0w2" 
-            style="font-size:22px; font-weight:600; color:#000; width:420px; height:300px; display:block">
-            METAR Keflavik International Airport
-          </a>
+      <div class="weather-columns">
+        <div class="weather-right weather-block">
+          <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
+            <a href="https://metar-taf.com/BIKF"
+              id="metartaf-NKaps0w2"
+              style="font-size:20px; font-weight:600; color:#000; width:380px; height:300px; display:block">
+              METAR Keflavik International Airport
+            </a>
+          </div>
+        </div>
+    
+        <div class="weather-right weather-block" id="iws-data">
+          <div class="weather-row">Loading IWS wind data...</div>
         </div>
       </div>
-
-
-      <div class="weather-right weather-block" id="iws-data">
-        <div class="weather-row">Loading IWS wind data...</div>
-      </div>
-    </div>
-  `;
-
-    // Load the landscape widget script
+    `;
+    
+    // Append the script separately after DOM is updated
     const script = document.createElement('script');
     script.src = 'https://metar-taf.com/embed-js/BIKF?layout=landscape&qnh=hPa&rh=rh&target=NKaps0w2';
     script.async = true;
     script.defer = true;
     script.crossOrigin = 'anonymous';
     document.body.appendChild(script);
+  
 
     // IWS Wind Data
     try {
