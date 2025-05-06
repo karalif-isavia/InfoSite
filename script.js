@@ -39,9 +39,14 @@ async function getWeather() {
     <div class="weather-columns">
       <div class="weather-right weather-block">
         <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
-          <a href="https://metar-taf.com/BIKF" id="metartaf-NKaps0w2" style="font-size:18px; font-weight:500; color:#000; width:350px; height:278px; display:block">METAR Keflavik International Airport</a>
+          <a href="https://metar-taf.com/BIKF" 
+            id="metartaf-NKaps0w2" 
+            style="font-size:22px; font-weight:600; color:#000; width:420px; height:300px; display:block">
+            METAR Keflavik International Airport
+          </a>
         </div>
       </div>
+
 
       <div class="weather-right weather-block" id="iws-data">
         <div class="weather-row">Loading IWS wind data...</div>
