@@ -71,13 +71,7 @@ async function getWeather() {
 
       const iwsEl = document.getElementById('iws-data');
       iwsEl.innerHTML = `
-      <div class="weather-columns">
-        <div class="weather-block metar-widget-column">
-          <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
-            <a href="https://metar-taf.com/BIKF" id="metartaf-NKaps0w2" style="font-size:18px; font-weight:500; color:#000; width:350px; height:278px; display:block">METAR Information for BIKF</a>
-          </div>
-        </div>
-    
+      <div class="weather-columns">    
         <div class="weather-block iws-column">
           <div class="iws-label">Average Wind Speed on Apron</div>
           <div class="iws-value">${iwsSpeed} kts</div>
