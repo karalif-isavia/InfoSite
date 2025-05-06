@@ -39,27 +39,25 @@ async function getWeather() {
     <div class="weather-columns">
       <div class="weather-right weather-block">
         <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
-          <a href="https://metar-taf.com/BIKF" id="metartaf-w5tuZoBz" style="font-size:18px; font-weight:500; color:#000; width:300px; height:435px; display:block">METAR Keflavik International Airport</a>
+          <a href="https://metar-taf.com/BIKF" id="metartaf-NKaps0w2" style="font-size:18px; font-weight:500; color:#000; width:350px; height:278px; display:block">METAR Keflavik International Airport</a>
         </div>
       </div>
-  
+
       <div class="weather-right weather-block" id="iws-data">
         <div class="weather-row">Loading IWS wind data...</div>
       </div>
     </div>
   `;
-  
 
+    // Load the landscape widget script
     const script = document.createElement('script');
-    script.src = 'https://metar-taf.com/embed-js/BIKF?qnh=hPa&rh=rh&target=w5tuZoBz';
+    script.src = 'https://metar-taf.com/embed-js/BIKF?layout=landscape&qnh=hPa&rh=rh&target=NKaps0w2';
     script.async = true;
     script.defer = true;
     script.crossOrigin = 'anonymous';
     document.body.appendChild(script);
 
-   // await fetchWeatherIcon();
-
-    // Fetch IWS and update 4th column + arrow
+    // IWS Wind Data
     try {
       const iwsResponse = await fetch('https://iws.isavia.is/weather/BIKF');
       const iwsJson = await iwsResponse.json();
@@ -77,11 +75,6 @@ async function getWeather() {
         <div class="weather-row"><span class="label">Gust:</span><span class="value">${iwsGust} kts</span></div>
         <div class="weather-row"><span class="label">Direction:</span><span class="value">${iwsDir}°</span></div>
       `;
-
-      //const windArrowEl = document.getElementById('wind-arrow');
-      //windArrowEl.className = 'wi wi-direction-up';
-      //windArrowEl.style.transform = `rotate(${parseFloat(iwsDir)}deg)`;
-
     } catch (err) {
       console.error("IWS fetch error inside getWeather():", err);
       const iwsEl = document.getElementById('iws-data');
@@ -94,6 +87,7 @@ async function getWeather() {
     document.getElementById('weather').innerText = "Failed to load weather.";
   }
 }
+
 
 
 /*async function fetchWeatherIcon() {
