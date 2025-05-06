@@ -278,15 +278,10 @@ function refreshData() {
     minute: '2-digit',
     second: '2-digit'
   });
-  const dateStr = now.toLocaleDateString('en-GB', {
-    weekday: 'short',
-    year: 'numeric',
-    month: 'short',
-    day: '2-digit'
-  });
-  document.getElementById('last-updated').innerText = `Last updated: ${dateStr}, ${timeStr}`;
-  
+
+  document.getElementById('last-updated').innerText = `Síðast uppfært: ${timeStr}`;
 }
+
 
 window.onload = function() {
   refreshData();                      // initial load
