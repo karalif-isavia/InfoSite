@@ -19,6 +19,32 @@
     <div id="weather">
       Loading weather...
     </div>
+
+    <div id="weather-kef">
+      <div class="weather-columns">
+        <div class="weather-left weather-block">
+          <div class="weather-row"><span class="label">Wind Speed:</span><span class="value">-- kts</span></div>
+          <div class="weather-row"><span class="label">Gust:</span><span class="value">-- kts</span></div>
+          <div class="weather-row"><span class="label">Direction:</span><span class="value">--°</span></div>
+        </div>
+    
+        <div class="weather-picture">
+          <i class="wi wi-cloud" style="font-size: 150px;"></i>
+        </div>
+    
+        <div class="weather-arrow">
+          <i class="wi wi-direction-up" style="transform: rotate(0deg); font-size: 200px;"></i>
+        </div>
+    
+        <div class="weather-right weather-block">
+          <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
+            <a href="https://metar-taf.com/BIKF" id="metartaf-w5tuZoBz" style="font-size:18px; font-weight:500; color:#000; width:300px; height:435px; display:block">METAR Keflavik International Airport</a>
+            <script async defer crossorigin="anonymous" src="https://metar-taf.com/embed-js/BIKF?qnh=hPa&rh=rh&target=w5tuZoBz"></script>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     
     <div id="info-box" class="info-banner">
       <span>Rúta er til taks frá 07:10 til 14:00, hringið í síma <strong>858 6060</strong> til að óska eftir þjónustu.</span>
