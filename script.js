@@ -41,7 +41,7 @@ async function getWeather() {
           <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
             <a href="https://metar-taf.com/BIKF"
               id="metartaf-NKaps0w2"
-              style="font-size:20px; font-weight:600; color:#000; width:380px; height:300px; display:block">
+              style="font-size:24px; font-weight:600; color:#000; width:460px; height:340px; display:block">
               METAR Keflavik International Airport
             </a>
           </div>
@@ -53,13 +53,14 @@ async function getWeather() {
       </div>
     `;
     
-    // Append the script separately after DOM is updated
+    // Append the METAR widget script
     const script = document.createElement('script');
     script.src = 'https://metar-taf.com/embed-js/BIKF?layout=landscape&qnh=hPa&rh=rh&target=NKaps0w2';
     script.async = true;
     script.defer = true;
     script.crossOrigin = 'anonymous';
     document.body.appendChild(script);
+  
   
 
     // IWS Wind Data
