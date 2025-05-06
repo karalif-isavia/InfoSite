@@ -43,6 +43,15 @@ async function getWeather() {
           <div class="weather-row"><span class="label">RH:</span><span class="value">--</span></div>
         </div>
 
+        <div class="weather-right weather-block">
+          <div id="metartaf-widget" class="weather-row" style="flex-direction: column; align-items: flex-start;">
+            <a href="https://metar-taf.com/BIKF" id="metartaf-w5tuZoBz" style="font-size:18px; font-weight:500; color:#000; width:150px; height:217px; display:block">METAR Keflavik International Airport</a>
+            <script async defer crossorigin="anonymous" src="https://metar-taf.com/embed-js/BIKF?qnh=hPa&rh=rh&target=w5tuZoBz"></script>
+            </div>
+          </div>
+        </div>
+        </div>
+
         <div class="weather-picture">
           <i id="weather-icon" class="weather-icon"></i>
         </div>
