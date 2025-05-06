@@ -52,14 +52,19 @@ async function getWeather() {
         </div>
       </div>
     `;
+  
     
-    // ✅ Inject the exact script separately — DO NOT include it inside innerHTML
+    // Remove previous copies of the script if any
+    document.querySelectorAll('script[src*="metar-taf.com/embed-js/BIKF"]').forEach(s => s.remove());
+
+    // Inject the matching script
     const script = document.createElement('script');
     script.src = 'https://metar-taf.com/embed-js/BIKF?layout=landscape&rh=rh&target=AYS1g8XJ';
     script.async = true;
     script.defer = true;
     script.crossOrigin = 'anonymous';
     document.body.appendChild(script);
+
   
   
 
